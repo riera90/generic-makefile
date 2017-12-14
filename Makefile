@@ -24,7 +24,7 @@ EXECUTION_DATA=SIMPLE
 		# todo complete does not works
 #############################################################
 # the previous configuration compiles the following tree
-# ./
+# ./$(COMPILER) -c $^
 #  ├main/
 #  │ ├main.cc
 #  │ ├foo.cc
@@ -49,7 +49,8 @@ ifeq ($(EXECUTION_DATA), SIMPLE)
 	time "$(OUTPUT_DIR)$(OUTPUT_NAME).out"
 endif
 ifeq ($(EXECUTION_DATA), COMPLETE)
-	@echo execute WIP, try EXECUTION_DATA as simple
+	@echo execut directory
+ #include "fn.h"e WIP, try EXECUTION_DATA as simple
 	# time "$(OUTPUT_DIR)$(OUTPUT_NAME).$(OUTPUT_EXTENSION)"
 endif
 ifeq ($(EXECUTION_DATA_RECOVERY), NO)
@@ -62,10 +63,11 @@ $(OUTPUT_DIR)$(OUTPUT_NAME) : $(BASE_DIR)$(MAIN_NAME).$(CODE_EXTENSION) $(LIB_DI
 	$(COMPILER) -o $(OUTPUT_DIR)$(OUTPUT_NAME).out $(BASE_DIR)$(MAIN_NAME).$(CODE_EXTENSION) $(LIB_DIR)$(LIB_NAME).a
 
 # .o COMPILATION
-$(FN_OBJ) : $(FN_CODE)
+$(OBJ_DIR)$(FN_OBJ) : $(BASE_DIR)$(FN_CODE)
+#	$(COMPILER) -c $^
 
 #.a COMPILATION
-$(LIB_DIR)$(LIB_NAME).a: $(addsuffix .o,$(FN_FILES_NAMES))
+$(LIB_DIR)$(LIB_NAME).a: $(OBJ_DIR)$(addsuffix .o,$(FN_FILES_NAMES))
 	ar -rs $(LIB_DIR)$(LIB_NAME).a $^
 
 # CLEAN
