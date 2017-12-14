@@ -38,9 +38,14 @@ EXECUTION_DATA=SIMPLE
 #############################################################
 # Makefile
 
-# MAKEFILE VARIABLES
-FN_OBJ = $(addsuffix .o,$(FN_FILES_NAMES))
-FN_CODE = $(addsuffix .$(CODE_EXTENSION),$(FN_FILES_NAMES))
+# MAKEFILE VARIABLES ASSIGNATION
+TEMP := $(addsuffix .$(CODE_EXTENSION),$(FN_FILES_NAMES))
+CODE_FILES_W_ROUTE := $(addprefix $(BASE_DIR),$(TEMP))
+
+TEMP := $(addsuffix .o,$(FN_FILES_NAMES))
+OBJ_FILES_W_ROUTE := $(addprefix $(OBJ_DIR),$(TEMP))
+
+
 
 # BINARY EXECUTION
 ifeq ($(EXECUTE_AFTER_COMPILATION), YES)
@@ -49,8 +54,7 @@ ifeq ($(EXECUTION_DATA), SIMPLE)
 	time "$(OUTPUT_DIR)$(OUTPUT_NAME).out"
 endif
 ifeq ($(EXECUTION_DATA), COMPLETE)
-	@echo execut directory
- #include "fn.h"e WIP, try EXECUTION_DATA as simple
+	@echo WIP, try EXECUTION_DATA as simple
 	# time "$(OUTPUT_DIR)$(OUTPUT_NAME).$(OUTPUT_EXTENSION)"
 endif
 ifeq ($(EXECUTION_DATA_RECOVERY), NO)
@@ -63,13 +67,19 @@ $(OUTPUT_DIR)$(OUTPUT_NAME) : $(BASE_DIR)$(MAIN_NAME).$(CODE_EXTENSION) $(LIB_DI
 	$(COMPILER) -o $(OUTPUT_DIR)$(OUTPUT_NAME).out $(BASE_DIR)$(MAIN_NAME).$(CODE_EXTENSION) $(LIB_DIR)$(LIB_NAME).a
 
 # .o COMPILATION
-$(OBJ_DIR)$(FN_OBJ) : $(BASE_DIR)$(FN_CODE)
-#	$(COMPILER) -c $^
+$(OBJ_FILES_W_ROUTE) : $(CODE_FILES_W_ROUTE)
+	$(COMPILER) -c $^
+	mv ./*.o $(OBJ_DIR)
+
 
 #.a COMPILATION
-$(LIB_DIR)$(LIB_NAME).a: $(OBJ_DIR)$(addsuffix .o,$(FN_FILES_NAMES))
-	ar -rs $(LIB_DIR)$(LIB_NAME).a $^
+$(LIB_DIR)$(LIB_NAME).a: $(OBJ_FILES_W_ROUTE)
+	ar -rs $@ $^
 
 # CLEAN
 clean:
-	rm -f *.out *.o *.a
+	rm -f $(OUTPUT_DIR)*.out $(OBJ_DIR)*.o $(LIB_DIR)*.a
+
+info:MAKE_OBJ_ROUTE MAKE_CODE_ROUTE
+	@echo $(FN_OBJ)
+	@echo $(FN_CODE)
