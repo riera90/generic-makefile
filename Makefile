@@ -78,4 +78,4 @@ $(LIB_DIR)$(LIB_NAME).a: $(OBJ_FILES_W_ROUTE)
 
 # CLEAN
 clean:
-	rm -f $(OUTPUT_DIR)*.out $(OBJ_DIR)*.o $(LIB_DIR)*.a)
+	rm -f $(OUTPUT_DIR)*.out $(OBJ_DIR)*.o $(LIB_DIR)*.a
