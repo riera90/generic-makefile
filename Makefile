@@ -20,7 +20,7 @@ CODE_EXTENSION=cc
 EXECUTE_AFTER_COMPILATION=YES
 	# [YES/NO]
 EXECUTION_DATA=SIMPLE
-	# [SIMPLE/COMPLETE]
+	# [SIMPLE/COMPLETE(generate a more vervose file)]
 		# todo complete does not works
 #############################################################
 # the previous configuration compiles the following tree
@@ -78,8 +78,4 @@ $(LIB_DIR)$(LIB_NAME).a: $(OBJ_FILES_W_ROUTE)
 
 # CLEAN
 clean:
-	rm -f $(OUTPUT_DIR)*.out $(OBJ_DIR)*.o $(LIB_DIR)*.a
-
-info:MAKE_OBJ_ROUTE MAKE_CODE_ROUTE
-	@echo $(FN_OBJ)
-	@echo $(FN_CODE)
+	rm -f $(OUTPUT_DIR)*.out $(OBJ_DIR)*.o $(LIB_DIR)*.a)
