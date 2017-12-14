@@ -1,14 +1,14 @@
 # DIRECTORIES
-BASE_DIR=./
-OUTPUT_DIR=./
-LIB_DIR=./
-OBJ_DIR=./
+BASE_DIR=./main/
+OUTPUT_DIR=./output/
+LIB_DIR=./temp/
+OBJ_DIR=./temp/
 #------------------------------
-# FILENAMES
+# FILENAMES (without extension)
 OUTPUT_NAME=executable
 MAIN_NAME=main
-FN_FILES_NAMES=fn fn_2
-LIB_NAME=lib_test
+FN_FILES_NAMES=foo var
+LIB_NAME=lib_name
 #------------------------------
 # COMPILERS
 COMPILER=g++
@@ -22,6 +22,19 @@ EXECUTE_AFTER_COMPILATION=YES
 EXECUTION_DATA=SIMPLE
 	# [SIMPLE/COMPLETE]
 		# todo complete does not works
+#############################################################
+# the previous configuration compiles the following tree
+# ./
+#  ├main/
+#  │ ├main.cc
+#  │ ├foo.cc
+#  │ └var.cc
+#  ├output/
+#  │ └executable.out
+#  └temp/
+#    ├lib_name.a
+#    ├foo.o
+#    └var.o
 #############################################################
 # Makefile
 
