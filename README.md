@@ -17,7 +17,7 @@ variables are:
 		*FN_FILES_NAMES: the non main code names
 		*LIB_NAME: the library name that will be created
 
-	Compiles:
+	Compiler:
 		*COMPILER: gcc/g++
 
 	Extensions:
