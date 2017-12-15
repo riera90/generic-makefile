@@ -14,10 +14,10 @@ variables are:
 
 **Directories:**
 	
-	-BASE_DIR: Where the main and functions reside
-	-OUTPUT_DIR: Where the binary will be created
-	-LIB_DIR: Where the library will be created
-	-OBJ_DIR: Where all the objects will be created
+	BASE_DIR: Where the main and functions reside
+	OUTPUT_DIR: Where the binary will be created
+	LIB_DIR: Where the library will be created
+	OBJ_DIR: Where all the objects will be created
 
 **Filenames:** (without the extension)
 
@@ -49,7 +49,8 @@ variables are:
 	git clone git@github.com:riera90/generic-makefile.git
 	cd greneric-makefile
 	mv * <working directory>
-Configure the variabes
+Configure the variables
+
 	make
 And enjoy the binaries!
 
