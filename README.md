@@ -49,7 +49,9 @@ variables are:
 	git clone git@github.com:riera90/generic-makefile.git
 	cd greneric-makefile
 	mv * <working directory>
-and configure the variabes
+Configure the variabes
+	make
+And enjoy the binaries!
 
 ## Licence
 
