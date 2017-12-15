@@ -13,7 +13,7 @@ Just edit the variables and run it!
 variables are:
 
 **Directories:**
-	
+
 	BASE_DIR: Where the main and functions reside
 	OUTPUT_DIR: Where the binary will be created
 	LIB_DIR: Where the library will be created
@@ -42,7 +42,8 @@ variables are:
 			if enabled data of the execution will be shown.
 			It can be vervose or very vervose.
 			If very vervose is selected a file will be created (not working)
-
+	COMPILATION_FLAGS:
+			The binary compilation flags
 
 ## Implementation
 

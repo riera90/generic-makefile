@@ -22,6 +22,8 @@ EXECUTE_AFTER_COMPILATION=YES
 EXECUTION_DATA=SIMPLE
 	# [SIMPLE/COMPLETE(generate a more vervose file)]
 		# todo complete does not works
+COMPILATION_FLAGS=Wpedantic
+	#the binary compilation flags
 #############################################################
 # the previous configuration compiles the following tree
 # ./$(COMPILER) -c $^
@@ -45,6 +47,8 @@ CODE_FILES_W_ROUTE := $(addprefix $(BASE_DIR),$(TEMP))
 TEMP := $(addsuffix .o,$(FN_FILES_NAMES))
 OBJ_FILES_W_ROUTE := $(addprefix $(OBJ_DIR),$(TEMP))
 
+FLAGS :=$(addprefix -,$(COMPILATION_FLAGS))
+
 
 
 # BINARY EXECUTION
@@ -61,9 +65,9 @@ ifeq ($(EXECUTION_DATA_RECOVERY), NO)
 endif
 endif
 
-# BINARY COMPILATION (gcc -o a.out main.cc lib.a)
+# BINARY COMPILATION (gcc -o a.out main.cc lib.a -flags)
 $(OUTPUT_DIR)$(OUTPUT_NAME) : $(BASE_DIR)$(MAIN_NAME).$(CODE_EXTENSION) $(LIB_DIR)$(LIB_NAME).a
-	$(COMPILER) -o $(OUTPUT_DIR)$(OUTPUT_NAME).out $(BASE_DIR)$(MAIN_NAME).$(CODE_EXTENSION) $(LIB_DIR)$(LIB_NAME).a
+	$(COMPILER) -o $(OUTPUT_DIR)$(OUTPUT_NAME).out $(BASE_DIR)$(MAIN_NAME).$(CODE_EXTENSION) $(LIB_DIR)$(LIB_NAME).a $(FLAGS)
 
 # .o COMPILATION (gcc -c var.cc foo.cc)
 $(OBJ_FILES_W_ROUTE) : $(CODE_FILES_W_ROUTE)
