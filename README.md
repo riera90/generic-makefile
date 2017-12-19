@@ -43,7 +43,7 @@ variables are:
 			It can be vervose or very vervose.
 			If very vervose is selected a file will be created (not working)
 	COMPILATION_FLAGS:
-			The binary compilation flags
+			The binary compilation flags without the "-"
 
 ## Implementation
 

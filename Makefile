@@ -23,7 +23,7 @@ EXECUTION_DATA=SIMPLE
 	# [SIMPLE/COMPLETE(generate a more vervose file)]
 		# todo complete does not works
 COMPILATION_FLAGS=Wpedantic
-	#the binary compilation flags
+	#the binary compilation flags without the "-"
 #############################################################
 # the previous configuration compiles the following tree
 # ./$(COMPILER) -c $^
