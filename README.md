@@ -1,10 +1,10 @@
-## Desctiption
+## Description
 
 Generic makefile intended for C and C++ under GNU.
 
 ## Why?
 
-So you dont have to make your owns
+So you don't have to make yours
 
 ## Usage
 

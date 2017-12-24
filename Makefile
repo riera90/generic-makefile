@@ -105,5 +105,5 @@ help:
 	#
 	# And enjoy the binaries!
 	#
-	# For a more extense manual refer to README.md
+	# For a more extense manual prease, refer to README.md
 	#
