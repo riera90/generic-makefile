@@ -179,7 +179,7 @@ help:
 	#| (_| |  __/ | | |  __/ |  | | (__  | | | | | | (_| |   <  __/ | | | |  __/
 	# \__, |\___|_| |_|\___|_|  |_|\___| |_| |_| |_|\__,_|_|\_\___|_| |_|_|\___|
 	#  __/ |
-	# |___/                                                           by riera90.
+	# |___/                                             by Danitico and Riera90.
 	#
 	## Implementation
 	# 	git clone git@github.com:riera90/generic-makefile.git
