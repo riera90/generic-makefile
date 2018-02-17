@@ -23,14 +23,36 @@ EXECUTION_DATA=SIMPLE
 	# [SIMPLE/COMPLETE(generate a more verbose file)]
 		# todo complete does not works
 COMPILATION_FLAGS=Wpedantic
-	#the binary compilation flags without the "-"
+#the binary compilation flags without the "-"
+
+
+#############################################################
+# the previous configuration compiles the following tree
+# ./
+#  ├main/
+#  │ ├main.cc
+#  │ ├foo.cc
+#  │ └var.cc
+#  ├output/
+#  │ └executable.out
+#  └temp/
+#    ├lib_name.a
+#    ├foo.o
+#    └var.o
+# Unitest:
+#
+#
+#
+#############################################################
+#GTEST_DIR
+#############################################################
 # Please tweak the following variable definitions as needed by your
 # project, except GTEST_HEADERS, which you can use in your own targets
 # but shouldn't modify.
 
 # Points to the root of Google Test, relative to where this file is.
 # Remember to tweak this if you move this file.
-GTEST_DIR = /home/daniel/Desktop/SEGUNDO_CARRERA/POO/googletest*
+GTEST_DIR = /googletest*
 
 # Where to find user code.
 # USER_DIR = ../samples
@@ -54,24 +76,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 
 # House-keeping build targets.
 
-#############################################################
-# the previous configuration compiles the following tree
-# ./
-#  ├main/
-#  │ ├main.cc
-#  │ ├foo.cc
-#  │ └var.cc
-#  ├output/
-#  │ └executable.out
-#  └temp/
-#    ├lib_name.a
-#    ├foo.o
-#    └var.o
-# Unitest:
-#
-#
-#
-#
+
 #############################################################
 # Makefile
 
