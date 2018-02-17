@@ -46,6 +46,8 @@ COMPILATION_FLAGS=Wpedantic
 #############################################################
 #GTEST_DIR
 #############################################################
+GTEST=NO
+#[YES/NO]
 # Please tweak the following variable definitions as needed by your
 # project, except GTEST_HEADERS, which you can use in your own targets
 # but shouldn't modify.
@@ -124,6 +126,8 @@ clean:
 	rm -f $(OUTPUT_DIR)*.out $(OBJ_DIR)*.o $(LIB_DIR)*.a
 googletest : $(TESTS)
 
+ifeq ($GTEST,YES)
+
 clean_googletest :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
 
@@ -174,7 +178,7 @@ foo_unittest : foo.o foo_unittest.o gtest_main.a
 
 var_unittest : var.o var_unittest.o foo.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
-
+endif
 
 help:
 	#                            _                        _         __ _ _
