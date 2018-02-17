@@ -23,14 +23,38 @@ EXECUTION_DATA=SIMPLE
 	# [SIMPLE/COMPLETE(generate a more verbose file)]
 		# todo complete does not works
 COMPILATION_FLAGS=Wpedantic
-	#the binary compilation flags without the "-"
+#the binary compilation flags without the "-"
+
+
+#############################################################
+# the previous configuration compiles the following tree
+# ./
+#  ├main/
+#  │ ├main.cc
+#  │ ├foo.cc
+#  │ └var.cc
+#  ├output/
+#  │ └executable.out
+#  └temp/
+#    ├lib_name.a
+#    ├foo.o
+#    └var.o
+# Unitest:
+#
+#
+#
+#############################################################
+#GTEST_DIR
+#############################################################
+GTEST=NO
+#[YES/NO]
 # Please tweak the following variable definitions as needed by your
 # project, except GTEST_HEADERS, which you can use in your own targets
 # but shouldn't modify.
 
 # Points to the root of Google Test, relative to where this file is.
 # Remember to tweak this if you move this file.
-GTEST_DIR = /home/daniel/Desktop/SEGUNDO_CARRERA/POO/googletest*
+GTEST_DIR = /googletest*
 
 # Where to find user code.
 # USER_DIR = ../samples
@@ -54,24 +78,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 
 # House-keeping build targets.
 
-#############################################################
-# the previous configuration compiles the following tree
-# ./
-#  ├main/
-#  │ ├main.cc
-#  │ ├foo.cc
-#  │ └var.cc
-#  ├output/
-#  │ └executable.out
-#  └temp/
-#    ├lib_name.a
-#    ├foo.o
-#    └var.o
-# Unitest:
-#
-#
-#
-#
+
 #############################################################
 # Makefile
 
@@ -118,6 +125,8 @@ $(LIB_DIR)$(LIB_NAME).a: $(OBJ_FILES_W_ROUTE)
 clean:
 	rm -f $(OUTPUT_DIR)*.out $(OBJ_DIR)*.o $(LIB_DIR)*.a
 googletest : $(TESTS)
+
+ifeq ($GTEST,YES)
 
 clean_googletest :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
@@ -169,7 +178,7 @@ foo_unittest : foo.o foo_unittest.o gtest_main.a
 
 var_unittest : var.o var_unittest.o foo.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
-
+endif
 
 help:
 	#                            _                        _         __ _ _
@@ -179,7 +188,7 @@ help:
 	#| (_| |  __/ | | |  __/ |  | | (__  | | | | | | (_| |   <  __/ | | | |  __/
 	# \__, |\___|_| |_|\___|_|  |_|\___| |_| |_| |_|\__,_|_|\_\___|_| |_|_|\___|
 	#  __/ |
-	# |___/                                                           by riera90.
+	# |___/                                             by Danitico and Riera90.
 	#
 	## Implementation
 	# 	git clone git@github.com:riera90/generic-makefile.git
