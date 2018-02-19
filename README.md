@@ -63,4 +63,4 @@ Licensed under the [BSD-3 licence](https://github.com/riera90/generic-makefile/b
 
 ## Whant to colaborate?
 
-I would like to implement Googletest, if you are interested contact me at telegram @riera90.
+Read [CONTRIBUTING.md](https://github.com/riera90/generic-makefile/blob/master/CONTRIBUTING.md)!
