@@ -1,14 +1,17 @@
+
 # DIRECTORIES
-BASE_DIR=./main/
-OUTPUT_DIR=./output/
-LIB_DIR=./temp/
-OBJ_DIR=./temp/
+BASE_DIR=./main
+OUTPUT_DIR=./output
+LIB_DIR=./temp
+OBJ_DIR=./temp
 #------------------------------
 # FILENAMES (without extension)
 OUTPUT_NAME=executable
 MAIN_NAME=main
 FN_FILES_NAMES=foo var
 LIB_NAME=lib_name
+HEADERS_LOCATION=
+# where the headers are located inside of the BASE_DIR folder [opcional if all the files are in BASE_DIR]
 #------------------------------
 # COMPILERS
 COMPILER=g++
@@ -24,7 +27,6 @@ EXECUTION_DATA=SIMPLE
 		# todo complete does not works
 COMPILATION_FLAGS=Wpedantic
 #the binary compilation flags without the "-"
-
 
 #############################################################
 # the previous configuration compiles the following tree
@@ -82,14 +84,29 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 #############################################################
 # Makefile
 
+TEMP:=$(BASE_DIR)
+BASE_DIR:=$(addsuffix /,$(TEMP))
+
+TEMP:=$(OUTPUT_DIR)
+OUTPUT_DIR:=$(addsuffix /,$(TEMP))
+
+TEMP:=$(LIB_DIR)
+LIB_DIR:=$(addsuffix /,$(TEMP))
+
+TEMP:=$(OBJ_DIR)
+OBJ_DIR:=$(addsuffix /,$(TEMP))
+
 # MAKEFILE VARIABLES ASSIGNATION
 TEMP := $(addsuffix .$(CODE_EXTENSION),$(FN_FILES_NAMES))
 CODE_FILES_W_ROUTE := $(addprefix $(BASE_DIR),$(TEMP))
 
 TEMP := $(addsuffix .o,$(FN_FILES_NAMES))
-OBJ_FILES_W_ROUTE := $(addprefix $(OBJ_DIR),$(TEMP))
+temp:=$(shell echo "$(temp)" | grep -Eo [a-z\.\_\-]*$)
+TEMP:= $(addprefix $(OBJ_DIR),$(TEMP))
+OBJ_FILES_W_ROUTE:=
 
 FLAGS :=$(addprefix -,$(COMPILATION_FLAGS))
+FLAGS += $(addprefix -I $(BASE_DIR),$(HEADERS_LOCATION))
 
 
 
@@ -113,12 +130,14 @@ $(OUTPUT_DIR)$(OUTPUT_NAME) : $(BASE_DIR)$(MAIN_NAME).$(CODE_EXTENSION) $(LIB_DI
 
 # .o COMPILATION (gcc -c var.cc foo.cc)
 $(OBJ_FILES_W_ROUTE) : $(CODE_FILES_W_ROUTE)
+
+	cd $(OBJ_DIR)
 	$(COMPILER) -c $^
 	mv ./*.o $(OBJ_DIR)
 
 
 #.a COMPILATION (ar -rs .lib.a var.o foo.o)
-$(LIB_DIR)$(LIB_NAME).a: $(OBJ_FILES_W_ROUTE)
+$(LIB_DIR)$(LIB_NAME).a : $(OBJ_FILES_W_ROUTE)
 	ar -rs $@ $^
 
 # CLEAN
