@@ -101,13 +101,12 @@ TEMP := $(addsuffix .$(CODE_EXTENSION),$(FN_FILES_NAMES))
 CODE_FILES_W_ROUTE := $(addprefix $(BASE_DIR),$(TEMP))
 
 TEMP := $(addsuffix .o,$(FN_FILES_NAMES))
+temp:=$(shell echo "$(temp)" | grep -Eo [a-z\.\_\-]*$)
 TEMP:= $(addprefix $(OBJ_DIR),$(TEMP))
-OBJ_FILES_W_ROUTE:=$(subst /, ,$(OBJ_FILES_W_ROUTE))
+OBJ_FILES_W_ROUTE:=
 
 FLAGS :=$(addprefix -,$(COMPILATION_FLAGS))
 FLAGS += $(addprefix -I $(BASE_DIR),$(HEADERS_LOCATION))
-
-
 
 
 
@@ -138,7 +137,7 @@ $(OBJ_FILES_W_ROUTE) : $(CODE_FILES_W_ROUTE)
 
 
 #.a COMPILATION (ar -rs .lib.a var.o foo.o)
-$(LIB_DIR)$(LIB_NAME).a : $(word 2, ) #$(OBJ_FILES_W_ROUTE)#
+$(LIB_DIR)$(LIB_NAME).a : $(OBJ_FILES_W_ROUTE)
 	ar -rs $@ $^
 
 # CLEAN
