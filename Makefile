@@ -10,6 +10,8 @@ OUTPUT_NAME=executable
 MAIN_NAME=main
 FN_FILES_NAMES=foo var
 LIB_NAME=lib_name
+HEADERS_LOCATION=
+# where the headers are located inside of the BASE_DIR folder [opcional if all the files are in BASE_DIR]
 #------------------------------
 # COMPILERS
 COMPILER=g++
@@ -25,7 +27,6 @@ EXECUTION_DATA=SIMPLE
 		# todo complete does not works
 COMPILATION_FLAGS=Wpedantic
 #the binary compilation flags without the "-"
-
 
 #############################################################
 # the previous configuration compiles the following tree
