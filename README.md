@@ -1,6 +1,7 @@
 ## Description
 
-Generic makefile intended for C and C++ under GNU.
+Generic makefile intended for C and C++ under GNU.  
+Now Supporting dinamic linking with headers!!
 
 ## Why?
 
@@ -25,6 +26,9 @@ variables are:
 	MAIN_NAME: the main name
 	FN_FILES_NAMES: the non main code names
 	LIB_NAME: the library name that will be created
+	HEADERS_LOCATION: where to search for the headers for dinamic linking (inside of BASE_DIR)
+		What is dinamic linking? some magical thing that lets you get away 
+		with #include "foo.h" when foo.h is in a subdirectory (func/foo.h)
 
 **Compiler:**
 
