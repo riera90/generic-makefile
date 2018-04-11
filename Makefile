@@ -140,7 +140,7 @@ endif
 endif
 
 # BINARY COMPILATION (gcc -o a.out main.cc lib.a -flags)
-$(OUTPUT_DIR)$(OUTPUT_NAME) : $(BASE_DIR)$(MAIN_NAME).$(CODE_EXTENSION) $(LIB_DIR)$(LIB_NAME).a create_temp
+$(OUTPUT_DIR)$(OUTPUT_NAME) : $(BASE_DIR)$(MAIN_NAME).$(CODE_EXTENSION) $(LIB_DIR)$(LIB_NAME).a
 	@echo Building binaries
 	@$(COMPILER) -o $(OUTPUT_DIR)$(OUTPUT_NAME).out $(BASE_DIR)$(MAIN_NAME).$(CODE_EXTENSION) $(LIB_DIR)$(LIB_NAME).a $(FLAGS) $(FLAGS_DIN)
 
@@ -166,7 +166,7 @@ clean:
 	rm -rf $(OBJ_DIR) $(LIB_DIR)
 
 create_temp:
-	./make-files/create_temp_folder.sh $(OBJ_FILES_W_ROUTE) $(LIB_FILES_W_ROUTE)
+	@./make-files/create_temp_folder.sh $(OBJ_FILES_W_ROUTE) $(LIB_FILES_W_ROUTE)
 
 googletest : $(TESTS)
 
