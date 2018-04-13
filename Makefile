@@ -29,7 +29,43 @@ COMPILATION_FLAGS=Wpedantic
 #the binary compilation flags without the "-"
 
 #############################################################
-# Makefile
+# GTEST configuration
+#############################################################
+
+GTEST=YES
+#[YES/NO]
+GTEST_DIR=googletest/googletest
+	# Points to the root of Google Test, relative to where this file is.
+	# Remember to tweak this if you move this file.
+TESTS=foo_unittest
+TESTS_DIR=./tests
+
+
+#############################################################
+# the previous configuration compiles the following tree
+# ./
+#  ├main/
+#  │ ├main.cc
+#  │ ├foo.cc
+#  │ └var.cc
+#  ├output/
+#  │ └executable.out
+#  ├temp/
+#  │ ├lib_name.a
+#  │ ├foo.o
+#  │ └var.o
+#  ├googletest/
+#  │ └googletest/
+#  └tests:
+#	   └foo_unittest.cc
+#
+#############################################################
+# Makefile: you should not touch nothing more...
+#############################################################
+
+#############################################################
+# GLOBAL_CONFUGURATION
+#############################################################
 
 # MAKEFILE VARIABLES ASSIGNATION
 
@@ -112,61 +148,29 @@ clean:
 create_temp:
 	@./make-files/create_temp_folder.sh $(OBJ_FILES_W_ROUTE) $(LIB_FILES_W_ROUTE)
 
-googletest : $(TESTS)
 
-ifeq ($GTEST,YES)
+#############################################################
+# GTEST
+#############################################################
 
-clean_googletest :
-	rm -f $(TESTS) gtest.a gtest_main.a *.o
+googletest : $(LIB_DIR)libgtest.a $(LIB_DIR)$(LIB_NAME).a $(TESTS_W_ROUTE_EXT) gtest_build
+	@for unittest in $(TESTS) ; do \
+		echo ; \
+		echo \	Running $$unittest; \
+		echo ; \
+		$(OUTPUT_DIR)$$unittest.out ; \
+	done
 
-# Builds gtest.a and gtest_main.a.
 
-# Usually you shouldn't tweak such internal variables, indicated by a
-# trailing _.
-GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
+gtest_build : $(LIB_DIR)libgtest.a $(LIB_DIR)$(LIB_NAME).a $(TESTS_W_ROUTE_EXT)
+	@for unittest in $(TESTS) ; do \
+		echo Building $$unittest ; \
+		g++ -isystem $(GTEST_DIR)/include -pthread $(FLAGS_DIN) $(TESTS_DIR)$$unittest.$(CODE_EXTENSION) $(LIB_DIR)$(LIB_NAME).a $(LIB_DIR)libgtest.a -o $(OUTPUT_DIR)$$unittest.out ; \
+	done
 
-# For simplicity and to avoid depending on Google Test's
-# implementation details, the dependencies specified below are
-# conservative and not optimized.  This is fine as Google Test
-# compiles fast and for ordinary users its source rarely changes.
-gtest-all.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-            $(GTEST_DIR)/src/gtest-all.cc
-
-gtest_main.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
-            $(GTEST_DIR)/src/gtest_main.cc
-
-gtest.a : gtest-all.o
-	$(AR) $(ARFLAGS) $@ $^
-
-gtest_main.a : gtest-all.o gtest_main.o
-	$(AR) $(ARFLAGS) $@ $^
-
-# Builds a sample test.  A test should link with either gtest.a or
-# gtest_main.a, depending on whether it defines its own main()
-# function.
-
-foo.o : foo.cc foo.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c foo.cc
-
-foo_unittest.o : foo_unittest.cc \
-                     foo.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c foo_unittest.cc -o foo_unittest.o
-
-var.o : var.cc var.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c var.cc
-
-var_unittest.o : var_unittest.cc \
-                     var.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c var_unittest.cc -o var_unittest.o
-
-foo_unittest : foo.o foo_unittest.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
-
-var_unittest : var.o var_unittest.o foo.o gtest_main.a
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
-endif
+#############################################################
+# HELP_SECTION
+#############################################################
 
 help:
 	#                            _                        _         __ _ _
