@@ -69,6 +69,9 @@ TESTS_DIR=./tests
 
 # MAKEFILE VARIABLES ASSIGNATION
 
+TEMP:=$(TESTS_DIR)
+TESTS_DIR:=$(addsuffix /,$(TEMP))
+
 TEMP:=$(BASE_DIR)
 BASE_DIR:=$(addsuffix /,$(TEMP))
 
@@ -150,7 +153,7 @@ create_temp:
 
 
 #############################################################
-# GTEST
+# GTEST WIP
 #############################################################
 
 googletest : $(LIB_DIR)libgtest.a $(LIB_DIR)$(LIB_NAME).a $(TESTS_W_ROUTE_EXT) gtest_build
@@ -166,7 +169,15 @@ gtest_build : $(LIB_DIR)libgtest.a $(LIB_DIR)$(LIB_NAME).a $(TESTS_W_ROUTE_EXT)
 	@for unittest in $(TESTS) ; do \
 		echo Building $$unittest ; \
 		g++ -isystem $(GTEST_DIR)/include -pthread $(FLAGS_DIN) $(TESTS_DIR)$$unittest.$(CODE_EXTENSION) $(LIB_DIR)$(LIB_NAME).a $(LIB_DIR)libgtest.a -o $(OUTPUT_DIR)$$unittest.out ; \
-	done
+done
+
+$(LIB_DIR)libgtest.a:
+	@./make-files/create_temp_folder.sh $(OBJ_FILES_W_ROUTE) $(LIB_FILES_W_ROUTE)
+	g++ -isystem $(GTEST_DIR)/include -I $(GTEST_DIR) -pthread -c $(GTEST_DIR)/src/gtest-all.cc $(GTEST_DIR)/src/gtest_main.cc
+	ar -rv libgtest.a gtest-all.o gtest_main.o
+	mv gtest-all.o temp/gtest-all.o
+	mv gtest_main.o temp/gtest_main.o
+	mv libgtest.a $(LIB_DIR)libgtest.a
 
 #############################################################
 # HELP_SECTION
@@ -194,4 +205,4 @@ help:
 	# And enjoy the binaries!
 	#
 	# For a more extense manual prease, refer to README.md
-	#
+#
