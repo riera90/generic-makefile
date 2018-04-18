@@ -1,21 +1,25 @@
-## Description
+# Description
 
 Generic makefile intended for C and C++ under GNU.
 
-#This makefile supports:
+**This makefile supports:**
+
 	- Dynamic linking with headers.
 	- Googletest.
 	- Automatic generation of temporal folders.
 
-## Why?
+# Why?
 
 So you don't have to make yours.
 
-## Usage
+# Usage
 
-Just edit the variables and run it!
+## comands
 
-variables are:
+- **make** builds the project
+- **make googletest** builds and execute the tests for the project
+
+## variables
 
 **Directories:**
 
@@ -64,7 +68,7 @@ to execute the tests
 
 	make googletest
 
-## Implementation
+# Implementation
 
 In your project
 
