@@ -73,7 +73,7 @@ to execute the tests
 In your project
 
 	git clone git@github.com:riera90/generic-makefile.git
-	cd greneric-makefile
+	cd generic-makefile
 	./install.sh
 Configure the variables
 
