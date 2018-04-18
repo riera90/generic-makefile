@@ -66,10 +66,11 @@ to execute the tests
 
 ## Implementation
 
+In your project
+
 	git clone git@github.com:riera90/generic-makefile.git
 	cd greneric-makefile
-	mv * <working directory>
-	cd <working directory>
+	./install.sh
 Configure the variables
 
 	make
