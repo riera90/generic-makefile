@@ -80,11 +80,11 @@ Configure the variables
 	make
 And enjoy the binaries!
 
-## Licence
+# Licence
 
 Licensed under the [BSD-3 licence](https://github.com/riera90/generic-makefile/blob/master/LICENSE.md)
 
 
-## Whant to colaborate?
+# Whant to colaborate?
 
 Read [CONTRIBUTING.md](https://github.com/riera90/generic-makefile/blob/master/CONTRIBUTING.md)!
