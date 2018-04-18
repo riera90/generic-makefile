@@ -1,11 +1,15 @@
 ## Description
 
-Generic makefile intended for C and C++ under GNU.  
-Now Supporting dinamic linking with headers!!
+Generic makefile intended for C and C++ under GNU.
+
+#This makefile supports:
+	- Dynamic linking with headers.
+	- Googletest.
+	- Automatic generation of temporal folders.
 
 ## Why?
 
-So you don't have to make yours
+So you don't have to make yours.
 
 ## Usage
 
@@ -26,9 +30,9 @@ variables are:
 	MAIN_NAME: the main name
 	FN_FILES_NAMES: the non main code names
 	LIB_NAME: the library name that will be created
-	HEADERS_LOCATION: where to search for the headers for dinamic linking (inside of BASE_DIR)
-		What is dinamic linking? some magical thing that lets you get away 
-		with #include "foo.h" when foo.h is in a subdirectory (func/foo.h)
+	HEADERS_LOCATION: where to search for the headers for dynamic linking (inside of BASE_DIR)
+		What is dynamic linking? some magical thing that lets you get away
+		with #include "foo.h" when foo.h is in a different directory (func/foo.h)
 
 **Compiler:**
 
@@ -36,7 +40,7 @@ variables are:
 
 **Extensions:**
 
-	EXTENSIONS: the code extension (not the headers)
+	EXTENSIONS: the code extension, normally c, cpp or c++ (not the headers)
 
 **Options:**
 
@@ -44,10 +48,21 @@ variables are:
 			if enable the binary will be executed after compilation
 	EXECUTION_DATA:
 			if enabled data of the execution will be shown.
-			It can be vervose or very vervose.
-			If very vervose is selected a file will be created (not working)
+			It can be verbose or very verbose.
+			If very verbose is selected a file will be created (not working)
 	COMPILATION_FLAGS:
 			The binary compilation flags without the "-"
+
+**Googletest**
+
+	GTEST: Currently this option does nothing..
+	GTEST_DIR: Directory of the googletest repository
+	TESTS: Tests of your own (without the extension)
+	TESTS_DIR: where the previous tests are located
+
+to execute the tests
+
+	make googletest
 
 ## Implementation
 
