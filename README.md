@@ -1,21 +1,27 @@
-## Description
+![](https://github.com/riera90/generic-makefile/blob/master/make-files/logo.png)
+# Description
 
 Generic makefile intended for C and C++ under GNU.
 
-#This makefile supports:
-	- Dynamic linking with headers.
-	- Googletest.
-	- Automatic generation of temporal folders.
+**This makefile supports:**
 
-## Why?
+- Dynamic linking with headers.
+- Googletest.
+- Automatic generation of temporal folders.
+
+# Why?
 
 So you don't have to make yours.
 
-## Usage
+# Usage
 
-Just edit the variables and run it!
+## comands
 
-variables are:
+- **make** builds the project.
+- **make googletest** builds and execute the tests for the project.
+- **make clean** cleanup of the proyect temporal files.
+
+## variables
 
 **Directories:**
 
@@ -40,7 +46,7 @@ variables are:
 
 **Extensions:**
 
-	EXTENSIONS: the code extension, normally c, cpp or c++ (not the headers)
+	EXTENSIONS: the code extension, normally c, cpp or c++ (not the header's extension)
 
 **Options:**
 
@@ -49,7 +55,7 @@ variables are:
 	EXECUTION_DATA:
 			if enabled data of the execution will be shown.
 			It can be verbose or very verbose.
-			If very verbose is selected a file will be created (not working)
+			If very verbose is selected a file will be created (WIP)
 	COMPILATION_FLAGS:
 			The binary compilation flags without the "-"
 
@@ -64,22 +70,23 @@ to execute the tests
 
 	make googletest
 
-## Implementation
+# Implementation
+
+In your project directory.
 
 	git clone git@github.com:riera90/generic-makefile.git
-	cd greneric-makefile
-	mv * <working directory>
-	cd <working directory>
+	cd generic-makefile
+	./install.sh
 Configure the variables
 
 	make
 And enjoy the binaries!
 
-## Licence
+# Licence
 
 Licensed under the [BSD-3 licence](https://github.com/riera90/generic-makefile/blob/master/LICENSE.md)
 
 
-## Whant to colaborate?
+# Whant to colaborate?
 
 Read [CONTRIBUTING.md](https://github.com/riera90/generic-makefile/blob/master/CONTRIBUTING.md)!

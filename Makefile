@@ -6,8 +6,7 @@ OBJ_DIR=./temp
 #------------------------------
 # FILENAMES (without extension)
 OUTPUT_NAME=executable
-MAIN_NAME=main
-# MAIN_NAME=testProcincia
+MAIN_NAME=src
 FN_FILES_NAMES=clases/foo clases/var
 LIB_NAME=lib_name
 HEADERS_LOCATION=clases
@@ -17,7 +16,7 @@ HEADERS_LOCATION=clases
 COMPILER=g++
 #------------------------------
 # EXTENSIONS
-CODE_EXTENSION=cpp
+CODE_EXTENSION=cc
 #------------------------------
 # OPTIONS
 EXECUTE_AFTER_COMPILATION=YES
@@ -33,7 +32,7 @@ COMPILATION_FLAGS=Wpedantic
 #############################################################
 
 GTEST=YES
-#[YES/NO]
+#[YES/NO](not working)
 GTEST_DIR=googletest/googletest
 	# Points to the root of Google Test, relative to where this file is.
 	# Remember to tweak this if you move this file.
@@ -44,10 +43,11 @@ TESTS_DIR=./tests
 #############################################################
 # the previous configuration compiles the following tree
 # ./
-#  ├main/
+#  ├src/
 #  │ ├main.cc
-#  │ ├foo.cc
-#  │ └var.cc
+#  | └clases
+#  │   ├foo.cc
+#  │   └var.cc
 #  ├output/
 #  │ └executable.out
 #  ├temp/
@@ -57,10 +57,10 @@ TESTS_DIR=./tests
 #  ├googletest/
 #  │ └googletest/
 #  └tests:
-#	   └foo_unittest.cc
+#    └foo_unittest.cc
 #
 #############################################################
-# Makefile: you should not touch nothing more...
+# Makefile: you should not touch nothing here...
 #############################################################
 
 #############################################################
@@ -193,15 +193,14 @@ help:
 	#  __/ |
 	# |___/                                             by Danitico and Riera90.
 	#
-	## Implementation
+	# Implementation
+	#
+	# In your project directory.
 	# 	git clone git@github.com:riera90/generic-makefile.git
-	# 	cd greneric-makefile
-	# 	mv * <working directory>
-	# 	cd <working directory>
-	#
-	# Configure the variables.
+	# 	cd generic-makefile
+	# 	./install.sh
+	# Configure the variables
 	# 	make
-	#
 	# And enjoy the binaries!
 	#
 	# For a more extense manual prease, refer to README.md
