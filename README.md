@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 ![](https://github.com/riera90/generic-makefile/blob/master/make-files/logo.png)
+=======
+>>>>>>> 74faba30c1a43a9135cead92610a035bc0b86e8a
 # Description
 
 Generic makefile intended for C and C++ under GNU.
@@ -17,9 +20,14 @@ So you don't have to make yours.
 
 ## comands
 
+<<<<<<< HEAD
 - **make** builds the project.
 - **make googletest** builds and execute the tests for the project.
 - **make clean** cleanup of the proyect temporal files.
+=======
+- **make** builds the project
+- **make googletest** builds and execute the tests for the project
+>>>>>>> 74faba30c1a43a9135cead92610a035bc0b86e8a
 
 ## variables
 
