@@ -4,9 +4,9 @@ Generic makefile intended for C and C++ under GNU.
 
 **This makefile supports:**
 
-	- Dynamic linking with headers.
-	- Googletest.
-	- Automatic generation of temporal folders.
+- Dynamic linking with headers.
+- Googletest.
+- Automatic generation of temporal folders.
 
 # Why?
 
