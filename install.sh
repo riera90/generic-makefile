@@ -1,5 +1,10 @@
 #!/bin/bash
-mv ./Makefile ./../Makefile
-mv ./make-files ./../make-files
-rm .git
-rm ./install.sh
+make clean
+rm example output -rf
+rm .git -rf
+git clone Googletest
+mv ./googletest ./../googletest -f
+mv ./Makefile ./../Makefile -f
+mv ./make-files ./../make-files -f
+rm ./install.sh -f
+# create uninstall

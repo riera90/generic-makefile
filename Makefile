@@ -1,14 +1,14 @@
 # DIRECTORIES
-BASE_DIR=./main
-OUTPUT_DIR=./output
+BASE_DIR=./example
+OUTPUT_DIR=./example_output
 LIB_DIR=./temp
 OBJ_DIR=./temp
 #------------------------------
 # FILENAMES (without extension)
 OUTPUT_NAME=executable
-MAIN_NAME=src
-FN_FILES_NAMES=clases/foo clases/var
-LIB_NAME=lib_name
+MAIN_NAME=main
+FN_FILES_NAMES=clases/Greeter
+LIB_NAME=greeter_lib
 HEADERS_LOCATION=clases
 # where the headers are located inside of the BASE_DIR folder (for dinamic linking)
 #------------------------------
@@ -16,7 +16,7 @@ HEADERS_LOCATION=clases
 COMPILER=g++
 #------------------------------
 # EXTENSIONS
-CODE_EXTENSION=cc
+CODE_EXTENSION=cpp
 #------------------------------
 # OPTIONS
 EXECUTE_AFTER_COMPILATION=YES
@@ -34,30 +34,26 @@ COMPILATION_FLAGS=Wpedantic
 GTEST=YES
 #[YES/NO](not working)
 GTEST_DIR=googletest/googletest
-	# Points to the root of Google Test, relative to where this file is.
+	# Generated in the install script
+	# Points to the root of Google Test, relative to where Makefile is.
 	# Remember to tweak this if you move this file.
-TESTS=foo_unittest
-TESTS_DIR=./tests
-
+TESTS_DIR=
+TESTS=
 
 #############################################################
 # the previous configuration compiles the following tree
 # ./
-#  ├src/
+#  ├example/
 #  │ ├main.cc
 #  | └clases
-#  │   ├foo.cc
-#  │   └var.cc
-#  ├output/
+#  │   ├Greeter.hpp
+#  │   └Greeter.cpp
+#  ├example_output/
 #  │ └executable.out
-#  ├temp/
-#  │ ├lib_name.a
-#  │ ├foo.o
-#  │ └var.o
-#  ├googletest/
-#  │ └googletest/
-#  └tests:
-#    └foo_unittest.cc
+#  └temp/
+#    ├lib_name.a
+#    ├foo.o
+#    └var.o
 #
 #############################################################
 # Makefile: you should not touch nothing here...
