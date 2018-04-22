@@ -141,7 +141,7 @@ $(LIB_DIR)$(LIB_NAME).a : $(OBJ_FILES_W_ROUTE_EXT)
 # CLEAN
 clean:
 	@echo cleaning.
-	@rm -rf $(OUTPUT_DIR)**/*.out
+	@rm -rf $(OUTPUT_DIR)/*.out
 	rm -rf $(OBJ_DIR) $(LIB_DIR)
 
 create_temp:

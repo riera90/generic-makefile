@@ -1,7 +1,7 @@
 # Contributing
 Please, contact @riera90 at telegram
 
-All contributions are wellcome!
+All contributions are welcome!
 
 
 # TODO List
