@@ -171,8 +171,8 @@ $(LIB_DIR)libgtest.a:
 	@./make-files/create_temp_folder.sh $(OBJ_FILES_W_ROUTE) $(LIB_FILES_W_ROUTE)
 	g++ -isystem $(GTEST_DIR)/include -I $(GTEST_DIR) -pthread -c $(GTEST_DIR)/src/gtest-all.cc $(GTEST_DIR)/src/gtest_main.cc
 	ar -rv libgtest.a gtest-all.o gtest_main.o
-	mv gtest-all.o temp/gtest-all.o
-	mv gtest_main.o temp/gtest_main.o
+	mv gtest-all.o $(OBJ_DIR)/gtest-all.o
+	mv gtest_main.o $(OBJ_DIR)/gtest_main.o
 	mv libgtest.a $(LIB_DIR)libgtest.a
 
 #############################################################
