@@ -32,33 +32,38 @@ LIBRARIES+= $(PROJECT_LIBRARY)
 
 BINARY_FILE:= $(OUTPUT_DIR)/$(BIN_NAME)
 
+FLAGS_DIN:= $(shell find $(SRC_DIR) -type d)
+FLAGS_DIN:= $(addprefix -I ,$(FLAGS_DIN))
+
 
 #############################################################
 # BINARY EXECUTION
 ifeq ($(EXECUTE_AFTER_COMPILATION), YES)
 .PHONY: execute
 execute : $(BINARY_FILE)
+	@echo "\n"
 	@time "$(BINARY_FILE)"
 endif
 
 #############################################################
 # BINARY COMPILATION
 $(BINARY_FILE) : $(LIBRARIES)
-	$(CXX) $(MAIN) $(LIBRARIES) $(CXXFLAGS) -o $(BINARY_FILE)
+	$(CXX) $(MAIN) -o $(BINARY_FILE) $(LIBRARIES) $(CXXFLAGS) $(FLAGS_DIN)
 
 #############################################################
 # LIBRARY COMPILATION
 $(PROJECT_LIBRARY) : $(OBJECTS)
 	@echo Building library.
-	# @ar -rs $@ $^
+	@ar -rs $@ $^
 
 #############################################################
 # OBJECTS COMPILATION
-test : $(CODE) $(HEADERS) folder_creation
-	@obj_file=empty
+$(OBJECTS) : $(CODE) $(HEADERS) folder_creation
 	@for code_file in $(CODE); do \
 		obj_file="$(TMP_DIR)/$$(echo $$code_file | sed -E -n 's/^\.\/[a-zA-Z\ \.\-\_]*\/(.*).$(SRC_CODE_EXT)/\1.o/p')"; \
+		echo "$$code_file"; \
 		echo "$$obj_file"; \
+		$(CXX) -c $$code_file $(FLAGS_DIN) -o $$obj_file; \
 	done
 
 #############################################################
@@ -82,6 +87,7 @@ test_variables:
 	@echo "\ttmp folders-> $(TMP_FOLDERS)"
 	@echo "\tobjects    -> $(OBJECTS)"
 	@echo "\tlibraries  -> $(LIBRARIES)"
+	@echo "\tflags_din  -> $(FLAGS_DIN)"
 
 #############################################################
 # HELP_SECTION
