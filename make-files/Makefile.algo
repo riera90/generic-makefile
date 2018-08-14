@@ -30,21 +30,47 @@ LIBRARIES:= $(shell find $(EXTRA_LIB_DIR) -type f)
 endif
 LIBRARIES+= $(PROJECT_LIBRARY)
 
-# binary execution
-ifeq ($(EXECUTE_AFTER_COMPILATION), YES)
-.PHONY: execute
-execute : $(BINARY_FILE)
-	# @time "$(BINARY_FILE)"
-endif
-
-# binary compilation
-$(BINARY_FILE) : $(LIBRARIES)
-	$(CXX) $(MAIN) $(LIBRARIES) $(CXXFLAGS) -o $(BINARY_FILE)
-
+BINARY_FILE:= $(OUTPUT_DIR)/$(BIN_NAME)
 
 
 #############################################################
-# DEBUG_SECTION
+# BINARY EXECUTION
+ifeq ($(EXECUTE_AFTER_COMPILATION), YES)
+.PHONY: execute
+execute : $(BINARY_FILE)
+	@time "$(BINARY_FILE)"
+endif
+
+#############################################################
+# BINARY COMPILATION
+$(BINARY_FILE) : $(LIBRARIES)
+	$(CXX) $(MAIN) $(LIBRARIES) $(CXXFLAGS) -o $(BINARY_FILE)
+
+#############################################################
+# LIBRARY COMPILATION
+$(PROJECT_LIBRARY) : $(OBJECTS)
+	@echo Building library.
+	# @ar -rs $@ $^
+
+#############################################################
+# OBJECTS COMPILATION
+test : $(CODE) $(HEADERS) folder_creation
+	@obj_file=empty
+	@for code_file in $(CODE); do \
+		obj_file="$(TMP_DIR)/$$(echo $$code_file | sed -E -n 's/^\.\/[a-zA-Z\ \.\-\_]*\/(.*).$(SRC_CODE_EXT)/\1.o/p')"; \
+		echo "$$obj_file"; \
+	done
+
+#############################################################
+# FOLDER_CREATION
+.PHONY: folder_creation
+folder_creation:
+	mkdir -p $(TMP_FOLDERS)
+	mkdir -p $(OUTPUT_DIR)
+
+
+#############################################################
+# DEBUG_SECTION (intended for developers)
 #############################################################
 
 .PHONY: test_variables
@@ -66,3 +92,8 @@ test_variables:
 help:
 	@cat ./make-files/banner.txt
 	@cat ./make-files/help.txt
+
+.PHONY: clean
+clean:
+	rm -rf $(TMP_DIR)
+	rm $(BINARY_FILE)
