@@ -9,7 +9,53 @@
 
 # MAKEFILE VARIABLES ASSIGNATION
 
+MAIN:= $(shell find $(SRC_DIR) -name '$(MAIN_FILE)' -type f)
 
+HEADERS:= $(shell find $(SRC_DIR) -name '*.$(SRC_HEADERS_EXT)' -type f)
+
+CODE:= $(shell find $(SRC_DIR) -name '*.$(SRC_CODE_EXT)' -type f)
+#filter out the main file from the code
+CODE:= $(filter-out $(MAIN), $(CODE))
+
+OBJECTS:= $(subst .$(SRC_CODE_EXT),.o,$(CODE))
+OBJECTS:= $(subst $(SRC_DIR),$(TMP_DIR),$(OBJECTS))
+
+TMP_FOLDERS:=  $(shell find $(SRC_DIR) -type d)
+TMP_FOLDERS:=  $(filter-out $(SRC_DIR),$(TMP_FOLDERS))
+TMP_FOLDERS:=  $(subst $(SRC_DIR),$(TMP_DIR),$(TMP_FOLDERS))
+
+PROJECT_LIBRARY:= $(TMP_DIR)/lib.a
+ifneq ($(EXTRA_LIB_DIR),) # checks if it's defined
+LIBRARIES:= $(shell find $(EXTRA_LIB_DIR) -type f)
+endif
+LIBRARIES+= $(PROJECT_LIBRARY)
+
+# binary execution
+ifeq ($(EXECUTE_AFTER_COMPILATION), YES)
+.PHONY: execute
+execute : $(BINARY_FILE)
+	# @time "$(BINARY_FILE)"
+endif
+
+# binary compilation
+$(BINARY_FILE) : $(LIBRARIES)
+	$(CXX) $(MAIN) $(LIBRARIES) $(CXXFLAGS) -o $(BINARY_FILE)
+
+
+
+#############################################################
+# DEBUG_SECTION
+#############################################################
+
+.PHONY: test_variables
+test_variables:
+	@echo "\t.          -> $(shell pwd)"
+	@echo "\tmain       -> $(MAIN)"
+	@echo "\theaders    -> $(HEADERS)"
+	@echo "\tcode       -> $(CODE)"
+	@echo "\ttmp folders-> $(TMP_FOLDERS)"
+	@echo "\tobjects    -> $(OBJECTS)"
+	@echo "\tlibraries  -> $(LIBRARIES)"
 
 #############################################################
 # HELP_SECTION

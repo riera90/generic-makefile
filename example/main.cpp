@@ -1,7 +1,6 @@
-#include "Greeter.hpp"
+#include <iostream>
 
 int main() {
-	Greeter greeter;
-	greeter.greet();
+	std::cout << "it works!" << '\n';
 	return 0;
 }
