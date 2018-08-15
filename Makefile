@@ -25,4 +25,4 @@ CXXFLAGS:=-Wpedantic
 # [YES/NO]
 EXECUTE_AFTER_COMPILATION=YES
 
-include ./make-files/Makefile.algo
+include ./make-files/Makefile
