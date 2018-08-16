@@ -26,6 +26,24 @@ So you don't have to make yours or configure another one for more than 30 second
 
 ### use the [generic-CLI](https://github.com/riera90/generic-CLI).
 
+- Clone the repository
+
+		git clone https://github.com/riera90/generic-CLI.git
+	
+- install the generic-CLI with the instalation script
+	
+		cd generic-cli
+		./install.sh
+	
+- install the generic-makefile in your project directory!
+		
+		cd <project directory>
+		generic-cli -c makefile
+	
+one line instalation command (for the first time only) then use the generic-cli utility
+		
+	git clone https://github.com/riera90/generic-CLI.git && cd generic-cli && sudo chmod +x ./install.sh && ./install.sh && generic-cli -c gmf
+
 ## Method 2: the 'hard' way
 
 - Clone the repository in your project directory
@@ -78,6 +96,15 @@ TODO
 Licensed under the [BSD-3 licence](https://github.com/riera90/generic-makefile/blob/master/LICENSE.md)
 
 
-# Whant to colaborate?
+# Want to colaborate?
 
 Read [CONTRIBUTING.md](https://github.com/riera90/generic-makefile/blob/master/CONTRIBUTING.md)!
+
+# FAQ!
+
+### Q: I have just cloned a repository with the generic-makefile, but the googletest is not working, what do I do?
+R: just use the [generic-CLI](https://github.com/riera90/generic-CLI) utility, in the project directory, type the command
+
+	generic-cli -c make
+
+When ask if you want googletest, say yes.
