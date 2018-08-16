@@ -1,3 +1,3 @@
 # Changes
-## README.md
-- Reflect new functionality.
+## Makefile and Makefile.algo
+- split algorithms and variables in multiples files

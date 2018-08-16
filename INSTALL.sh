@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 make clean
 rm example example_output -rf
 rm .git -rf
