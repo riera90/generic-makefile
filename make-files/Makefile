@@ -171,7 +171,7 @@ gtest_object_creation : folder_creation
 ####################### GNU_DEBUGGER ########################
 #############################################################
 ifeq ($(ALLOW_FOR_GNU_DEBUGGER),YES)
-.PHONY: bgd
+.PHONY: gdb
 gdb : $(BINARY)
 	@echo "\tLaunching gdb.\n"
 	@# executes the binary with time
