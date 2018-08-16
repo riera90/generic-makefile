@@ -24,5 +24,6 @@ CXXFLAGS:=-Wpedantic
 
 # [YES/NO]
 EXECUTE_AFTER_COMPILATION=YES
+ALLOW_FOR_GNU_DEBUGGER=NO
 
 include ./make-files/Makefile
