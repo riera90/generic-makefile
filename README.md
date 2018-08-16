@@ -20,10 +20,12 @@ So you don't have to make yours or configure another one for more than 30 second
 
 # Implementation
 
-- Clone the repository in your project directory  
+- Clone the repository in your project directory
+
 		git clone https://github.com/riera90/generic-makefile.git
 - Remove the .git of this repository
 - Remove the .gitignore, all the example folders if you want
+
 		rm -rf .git .gitignore example gtests
 - Configure the variables in the Makefile file
 - hit make and enjoy!
