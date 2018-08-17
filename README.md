@@ -13,7 +13,7 @@ Intended for C and C++ under GNU/Linux.
 - Fully autonomous configuration except basic directories.
 - automatic dynamic linking.
 - Automatic directories generation.
-- Transparent googletest integration (todo).
+- Transparent googletest integration.
 - gdb
 
 # Why?
