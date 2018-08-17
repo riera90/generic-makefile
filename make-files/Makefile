@@ -125,6 +125,7 @@ $(TMP_FOLDERS) :
 ##################### GOOGLETEST ############################
 #############################################################
 
+ifneq ($(GTEST_DIR),)
 #############################################################
 # GOOGLETEST TESTS EXECUTION
 .PHONY: googletest
@@ -158,11 +159,12 @@ $(GTEST_LIBRARY) : gtest_object_creation
 #############################################################
 # GOOGLETEST OBJECTS PRECOMPILATION
 .PHONY: gtest_object_creation
-gtest_object_creation : folder_creation
+gtest_object_creation : $(TMP_FOLDERS)
 	@echo "\tPrecompiling googletest objects."
 	@g++ -isystem $(GTEST_REPOSITORY)/include -I $(GTEST_REPOSITORY) -pthread -c $(GTEST_REPOSITORY)/src/gtest-all.cc -o $(TMP_DIR)/gtest-all.o
 	@g++ -isystem $(GTEST_REPOSITORY)/include -I $(GTEST_REPOSITORY) -pthread -c $(GTEST_REPOSITORY)/src/gtest_main.cc -o $(TMP_DIR)/gtest_main.o
 
+endif
 
 #############################################################
 ####################### GNU_DEBUGGER ########################
