@@ -81,7 +81,7 @@ ifeq ($(CODE),) # chechs if there is only a main
 
 #############################################################
 # BINARY COMPILATION (with only main)
-$(BINARY) : $(MAIN)
+$(BINARY) : banner $(MAIN)
 	@echo "\tCompiling binary."
 	@$(CXX) $(MAIN) -o $(BINARY) $(CXXFLAGS) $(FLAGS_DIN)
 
@@ -89,7 +89,7 @@ else
 
 #############################################################
 # BINARY COMPILATION
-$(BINARY) : $(LIBRARIES)
+$(BINARY) : banner $(LIBRARIES)
 	@echo "\tCompiling binary."
 	@$(CXX) $(MAIN) -o $(BINARY) $(LIBRARIES) $(CXXFLAGS) $(FLAGS_DIN)
 
@@ -97,11 +97,11 @@ $(BINARY) : $(LIBRARIES)
 # LIBRARY COMPILATION
 $(PROJECT_LIBRARY) : $(OBJECTS)
 	@echo "\tBuilding library."
-	@ar -rsc $@ $^
+	@ar -rsc $(PROJECT_LIBRARY) $(OBJECTS)
 
 #############################################################
 # OBJECTS COMPILATION
-$(OBJECTS) : $(CODE) $(HEADERS) folder_creation
+$(OBJECTS) : $(CODE) $(HEADERS) $(TMP_FOLDERS)
 	@echo "\tPrecompiling objects."
 	@# the regex is to change from code path to object path and compiles the object
 	@for code_file in $(CODE); do \
@@ -114,10 +114,7 @@ endif
 
 #############################################################
 # FOLDER_CREATION
-.PHONY: folder_creation
-folder_creation :
-	@# prints the small banner
-	@cat ./make-files/fancy_banner_short.txt
+$(TMP_FOLDERS) :
 	@echo "\tCreating temporal directories."
 	@# makes the directory tree
 	@mkdir -p $(TMP_FOLDERS)
@@ -199,8 +196,12 @@ test_variables:
 #############################################################
 ###################### HELP_SECTION #########################
 #############################################################
-# prints the banner and help files
 
+.PHONY: banner
+banner :
+	@cat ./make-files/fancy_banner_short.txt
+
+# prints the banner and help files
 .PHONY: help
 help:
 	@cat ./make-files/banner.txt
