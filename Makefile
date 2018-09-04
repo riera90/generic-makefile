@@ -1,22 +1,21 @@
 # DIRECTORIES
 # src directory
-SRC_DIR:=./example
-GTEST_DIR=./gtests
-OUTPUT_DIR:=./output
+SRC_DIR         :=./example
+GTEST_DIR       :=./gtests
+OUTPUT_DIR      :=./output
 # aditional project libs directory
-EXTRA_LIB_DIR:=./extra_libs
+EXTRA_LIB_DIR   :=./extra_libs
 # temporal files directory
-TMP_DIR:=./tmp
-
-SRC_CODE_EXT		:=cpp
-SRC_HEADERS_EXT	:=hpp
-MAIN_FILE				:=main.cpp
-EXCLUDED_FILES	:=
+TMP_DIR         :=./tmp
+SRC_CODE_EXT    :=cpp
+SRC_HEADERS_EXT :=hpp
+MAIN_FILE       :=main.cpp
+# expluded files is a WIP feature
+EXCLUDED_FILES  :=
 
 
 # binary file name
 BIN_NAME:=bin.out
-
 # compiler
 CXX:=g++
 # compilation flags
