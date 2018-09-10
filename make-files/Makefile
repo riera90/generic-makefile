@@ -73,7 +73,7 @@ ifeq ($(EXECUTE_AFTER_COMPILATION), YES)
 execute : $(BINARY)
 	@echo "\tExecuting binary.\n"
 	@# executes the binary with time
-	@time "$(BINARY)"
+	@time "$(BINARY)" $(BIN_ARGUMENTS)
 endif
 
 
