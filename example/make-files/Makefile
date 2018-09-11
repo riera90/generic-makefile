@@ -36,7 +36,7 @@ TMP_FOLDERS:=  $(shell find $(SRC_DIR) -type d)
 # filters out the src directory
 TMP_FOLDERS:=  $(filter-out $(SRC_DIR),$(TMP_FOLDERS))
 # changes the src dir to tmp dir
-TMP_FOLDERS:=  $(subst $(SRC_DIR),$(TMP_DIR),$(TMP_FOLDERS))
+TMP_FOLDERS:=  $(subst $(SRC_DIR),$(TMP_DIR),$(TMP_FOLDERS)) $(OUTPUT_DIR)
 
 # full path to the project library
 PROJECT_LIBRARY:= $(TMP_DIR)/libproject.a

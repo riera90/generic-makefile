@@ -29,19 +29,19 @@ So you don't have to make yours or configure another one for more than 30 second
 - Clone the repository
 
 		git clone https://github.com/riera90/generic-CLI.git
-	
+
 - install the generic-CLI with the instalation script
-	
+
 		cd generic-cli
 		./install.sh
-	
+
 - install the generic-makefile in your project directory!
-		
+
 		cd <project directory>
 		generic-cli -c makefile
-	
+
 one line instalation command (for the first time only) then use the generic-cli utility
-		
+
 	git clone https://github.com/riera90/generic-CLI.git && cd generic-cli && sudo chmod +x ./install.sh && ./install.sh && generic-cli -c gmf
 
 ## Method 2: the 'hard' way
@@ -49,7 +49,7 @@ one line instalation command (for the first time only) then use the generic-cli 
 - Clone the repository in your project directory
 
 		git clone https://github.com/riera90/generic-makefile.git
-		
+
 - Remove the .git of this repository
 - Remove the .gitignore, all the example folders if you want
 
@@ -89,7 +89,23 @@ one line instalation command (for the first time only) then use the generic-cli 
 
 ## variables
 
-TODO
+| variable        | definition    | restrictions  |
+| --------------- |---------------| --------------|
+| SRC_DIR         | Source directory | Is a directory |
+| GTEST_DIR       | googletest directory as in | Is a directory |
+| OUTPUT_DIR      | Directory where the binary will reside | Is a directory |
+| EXTRA_LIB_DIR   | Directory for extra extarnal libraries | Is a directory |
+| TMP_DIR         | Temporal directory for objects and libraries | Is a directory |
+| SRC_CODE_EXT    | Extension for the source code | Is an extension |
+| SRC_HEADERS_EXT | Extension for the source headers | Is an extension |
+| MAIN_FILE       | The file where the main resides, there is no need for the full path, just the finename and the extension is enought | Is an existing filename |
+| EXCLUDED_FILES  | Work In Progress, not working at all | |
+| BIN_NAME        | The name the binary will receive | |
+| BIN_ARGUMENTS   | The arguments the binary will be executed with (if executed with the Makefile) | |
+| CXX             | The compiler | [gcc/g++] |
+| CXXFLAGS        | The compilation flags | '-' or  '--' is needed |
+| EXECUTE_AFTER_COMPILATION | Option for executing of the binary file after the compilation | [YES/NO] |
+| ALLOW_FOR_GDB | Activates the GNU debugger | [YES/NO] |
 
 # Licence
 
