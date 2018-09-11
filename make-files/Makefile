@@ -9,16 +9,24 @@
 
 # MAKEFILE VARIABLES ASSIGNATION
 
+# excluded files
+ifneq ($(EXCLUDED_FILES),)
+AUX:= $(foreach file, $(EXCLUDED_FILES),$(shell find $(SRC_DIR) -name '$(file)' -type f))
+EXCLUDED_FILES:= $(AUX)
+endif
+
 # full path to the main file
 MAIN:= $(shell find $(SRC_DIR) -name '$(MAIN_FILE)' -type f)
 
 # full path to all headers files
 HEADERS:= $(shell find $(SRC_DIR) -name '*.$(SRC_HEADERS_EXT)' -type f)
+HEADERS:= $(filter-out $(EXCLUDED_FILES), $(HEADERS))
 
 # full path to all code files
 CODE:= $(shell find $(SRC_DIR) -name '*.$(SRC_CODE_EXT)' -type f)
-# filter out the main file from the code
+# filter out the main and excluded files from the code
 CODE:= $(filter-out $(MAIN), $(CODE))
+CODE:= $(filter-out $(EXCLUDED_FILES), $(CODE))
 
 # full path to where the objects are or will be created
 # modificated from the code variable
@@ -27,6 +35,7 @@ OBJECTS:= $(subst $(SRC_DIR),$(TMP_DIR),$(OBJECTS))
 
 # full path to google tests unittests for the code
 GTESTS:= $(shell find $(GTEST_DIR) -type f)
+GTESTS:= $(filter-out $(EXCLUDED_FILES), $(GTESTS))
 
 # full path to googletest reposotory
 GTEST_REPOSITORY:= ./make-files/googletest/googletest
@@ -49,6 +58,7 @@ ifneq ($(EXTRA_LIB_DIR),) # checks if it's defined
 LIBRARIES:= $(shell find $(EXTRA_LIB_DIR) -type f)
 endif
 LIBRARIES+= $(PROJECT_LIBRARY)
+LIBRARIES:= $(filter-out $(EXCLUDED_FILES), $(LIBRARIES))
 
 # path to the binary file
 BINARY:= $(OUTPUT_DIR)/$(BIN_NAME)
@@ -194,6 +204,7 @@ test_variables:
 	@echo "\tgtests     -> $(GTESTS)"
 	@echo "\tgtest bin  -> $(GTESTS_BINARIES)"
 	@echo "\tmain bin   -> $(BINARY)"
+	@echo "\texcluded   -> $(EXCLUDED_FILES)"
 
 #############################################################
 ###################### HELP_SECTION #########################

@@ -94,12 +94,12 @@ one line instalation command (for the first time only) then use the generic-cli 
 | SRC_DIR         | Source directory | Is a directory |
 | GTEST_DIR       | googletest directory as in | Is a directory |
 | OUTPUT_DIR      | Directory where the binary will reside | Is a directory |
-| EXTRA_LIB_DIR   | Directory for extra extarnal libraries | Is a directory |
+| EXTRA_LIB_DIR   | Directory for extra external libraries | Is a directory |
 | TMP_DIR         | Temporal directory for objects and libraries | Is a directory |
 | SRC_CODE_EXT    | Extension for the source code | Is an extension |
 | SRC_HEADERS_EXT | Extension for the source headers | Is an extension |
-| MAIN_FILE       | The file where the main resides, there is no need for the full path, just the finename and the extension is enought | Is an existing filename |
-| EXCLUDED_FILES  | Work In Progress, not working at all | |
+| MAIN_FILE       | The file where the main resides, there is no need for the full path, just the filename and the extension is enough | Is an existing filename |
+| EXCLUDED_FILES  | excluded files from the project as a regular expression, various expressions are allowed, and must be separated by spaces | |
 | BIN_NAME        | The name the binary will receive | |
 | BIN_ARGUMENTS   | The arguments the binary will be executed with (if executed with the Makefile) | |
 | CXX             | The compiler | [gcc/g++] |

@@ -10,7 +10,7 @@ TMP_DIR         :=./tmp
 SRC_CODE_EXT    :=cpp
 SRC_HEADERS_EXT :=hpp
 MAIN_FILE       :=main.cpp
-# expluded files is a WIP feature
+# excluded files from the project
 EXCLUDED_FILES  :=
 
 
