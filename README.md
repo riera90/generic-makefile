@@ -80,10 +80,10 @@ one line instalation command (for the first time only) then use the generic-cli 
 
 # Usage
 
-## comands
+## Commands
 
-- **make** builds the project.
-- **make googletest** builds and execute the tests for the project.
+- **make** It builds the project.
+- **make googletest** It builds and executes the tests for the project.
 - **make clean** cleanup of the project temporal files.
 - **make gdb** fresh gdb compilation.
 
