@@ -1,0 +1,11 @@
+  Implementation
+
+  In your project directory.
+
+    git clone git@github.com:riera90/generic-makefile.git
+    cd generic-makefile
+    Configure the variables
+    make
+    And enjoy the binaries!
+
+  For a more in depth manual please, refer to README.md
