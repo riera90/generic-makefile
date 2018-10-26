@@ -77,7 +77,7 @@ CXXFLAGS+= -g
 endif
 
 #############################################################
-# BINARY EXECUTION
+# BINARY EXECUTION WITH FLAG
 ifeq ($(EXECUTE_AFTER_COMPILATION), YES)
 .PHONY: execute
 execute : $(BINARY)
@@ -102,6 +102,14 @@ else
 $(BINARY) : banner $(LIBRARIES)
 	@echo "\tCompiling binary."
 	@$(CXX) $(MAIN) -o $(BINARY) $(LIBRARIES) $(CXXFLAGS) $(FLAGS_DIN)
+	
+#############################################################
+# BINARY EXECUTION WITH COMMAND
+.PHONY: run
+run : $(BINARY)
+	@echo "\tExecuting binary.\n"
+	@# executes the binary with time
+	@time "$(BINARY)" $(BIN_ARGUMENTS)
 
 #############################################################
 # LIBRARY COMPILATION
