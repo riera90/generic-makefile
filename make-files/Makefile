@@ -34,7 +34,7 @@ OBJECTS:= $(subst .$(SRC_CODE_EXT),.o,$(CODE))
 OBJECTS:= $(subst $(SRC_DIR),$(TMP_DIR),$(OBJECTS))
 
 # full path to google tests unittests for the code
-GTESTS:= $(shell find $(GTEST_DIR) -type f)
+GTESTS:= $(shell find $(GTEST_DIR) -name '*.$(SRC_CODE_EXT)' -type f)
 GTESTS:= $(filter-out $(EXCLUDED_FILES), $(GTESTS))
 
 # full path to googletest reposotory
