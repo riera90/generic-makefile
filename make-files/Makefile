@@ -34,7 +34,7 @@ OBJECTS:= $(subst .$(SRC_CODE_EXT),.o,$(CODE))
 OBJECTS:= $(subst $(SRC_DIR),$(TMP_DIR),$(OBJECTS))
 
 # full path to google tests unittests for the code
-GTESTS:= $(shell find $(GTEST_DIR) -type f)
+GTESTS:= $(shell find $(GTEST_DIR) -name '*.$(SRC_CODE_EXT)' -type f)
 GTESTS:= $(filter-out $(EXCLUDED_FILES), $(GTESTS))
 
 # full path to googletest reposotory
@@ -91,7 +91,7 @@ ifeq ($(CODE),) # chechs if there is only a main
 
 #############################################################
 # BINARY COMPILATION (with only main)
-$(BINARY) : banner $(MAIN)
+$(BINARY) : banner $(TMP_FOLDERS) $(MAIN)
 	@echo "\tCompiling binary."
 	@$(CXX) $(MAIN) -o $(BINARY) $(CXXFLAGS) $(FLAGS_DIN)
 
@@ -99,7 +99,7 @@ else
 
 #############################################################
 # BINARY COMPILATION
-$(BINARY) : banner $(LIBRARIES)
+$(BINARY) : banner $(TMP_FOLDERS) $(LIBRARIES)
 	@echo "\tCompiling binary."
 	@$(CXX) $(MAIN) -o $(BINARY) $(LIBRARIES) $(CXXFLAGS) $(FLAGS_DIN)
 	
@@ -119,7 +119,7 @@ $(PROJECT_LIBRARY) : $(OBJECTS)
 
 #############################################################
 # OBJECTS COMPILATION
-$(OBJECTS) : $(CODE) $(HEADERS) $(TMP_FOLDERS)
+$(OBJECTS) : $(CODE) $(HEADERS)
 	@echo "\tPrecompiling objects."
 	@# the regex is to change from code path to object path and compiles the object
 	@for code_file in $(CODE); do \
@@ -147,7 +147,7 @@ ifneq ($(GTEST_DIR),)
 #############################################################
 # GOOGLETEST TESTS EXECUTION
 .PHONY: googletest
-googletest : $(GTESTS_BINARIES) $(GTEST_LIBRARY) $(PROJECT_LIBRARY)
+googletest : $(GTESTS_BINARIES)
 	@echo "\tRunning googletests."
 	@#
 	@for test_code in $(GTESTS) ; do \
@@ -159,7 +159,7 @@ googletest : $(GTESTS_BINARIES) $(GTEST_LIBRARY) $(PROJECT_LIBRARY)
 
 #############################################################
 # GOOGLETEST TESTS COMPILATION
-$(GTESTS_BINARIES) : $(GTEST_LIBRARY) $(PROJECT_LIBRARY) $(GTESTS)
+$(GTESTS_BINARIES) : $(TMP_FOLDERS) $(GTEST_LIBRARY) $(PROJECT_LIBRARY) $(GTESTS)
 	@echo "\tCompiling googletests."
 	@for test_code in $(GTESTS) ; do \
 		binary_file="$(OUTPUT_DIR)/$$(echo $$test_code | sed -E -n 's/^\.\/[a-zA-Z\ \.\-\_]*\/(.*).$(SRC_CODE_EXT)/\1.out/p')"; \
@@ -170,17 +170,18 @@ done
 
 #############################################################
 # GOOGLETEST LIBRARY COMPILATION
-$(GTEST_LIBRARY) : gtest_object_creation
+$(GTEST_LIBRARY) : $(TMP_DIR)/gtest_main.o $(TMP_DIR)/gtest_all.o
 	@echo "\tCompiling googletest library."
 	@ar -rc $(GTEST_LIBRARY) $(TMP_DIR)/gtest-all.o $(TMP_DIR)/gtest_main.o
 
 #############################################################
 # GOOGLETEST OBJECTS PRECOMPILATION
-.PHONY: gtest_object_creation
-gtest_object_creation : $(TMP_FOLDERS)
+$(TMP_DIR)/gtest_main.o : $(GTEST_REPOSITORY)/src/gtest_main.cc
 	@echo "\tPrecompiling googletest objects."
-	@g++ -isystem $(GTEST_REPOSITORY)/include -I $(GTEST_REPOSITORY) -pthread -c $(GTEST_REPOSITORY)/src/gtest-all.cc -o $(TMP_DIR)/gtest-all.o
 	@g++ -isystem $(GTEST_REPOSITORY)/include -I $(GTEST_REPOSITORY) -pthread -c $(GTEST_REPOSITORY)/src/gtest_main.cc -o $(TMP_DIR)/gtest_main.o
+
+$(TMP_DIR)/gtest_all.o : $(GTEST_REPOSITORY)/src/gtest-all.cc
+	@g++ -isystem $(GTEST_REPOSITORY)/include -I $(GTEST_REPOSITORY) -pthread -c $(GTEST_REPOSITORY)/srckee/gtest-all.cc -o $(TMP_DIR)/gtest-all.o
 
 endif
 
