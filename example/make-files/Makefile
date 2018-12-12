@@ -181,7 +181,7 @@ $(TMP_DIR)/gtest_main.o : $(GTEST_REPOSITORY)/src/gtest_main.cc
 	@g++ -isystem $(GTEST_REPOSITORY)/include -I $(GTEST_REPOSITORY) -pthread -c $(GTEST_REPOSITORY)/src/gtest_main.cc -o $(TMP_DIR)/gtest_main.o
 
 $(TMP_DIR)/gtest_all.o : $(GTEST_REPOSITORY)/src/gtest-all.cc
-	@g++ -isystem $(GTEST_REPOSITORY)/include -I $(GTEST_REPOSITORY) -pthread -c $(GTEST_REPOSITORY)/srckee/gtest-all.cc -o $(TMP_DIR)/gtest-all.o
+	@g++ -isystem $(GTEST_REPOSITORY)/include -I $(GTEST_REPOSITORY) -pthread -c $(GTEST_REPOSITORY)/src/gtest-all.cc -o $(TMP_DIR)/gtest-all.o
 
 endif
 
