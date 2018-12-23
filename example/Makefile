@@ -4,7 +4,7 @@ SRC_DIR         :=./src
 GTEST_DIR       :=./gtests
 OUTPUT_DIR      :=./output
 # aditional project libs directory
-EXTRA_LIB_DIR   :=./extralib
+EXTRA_LIB_DIR   :=
 # temporal files directory
 TMP_DIR         :=./tmp
 SRC_CODE_EXT    :=cpp
@@ -25,15 +25,15 @@ CXXFLAGS:=-Wpedantic
 
 # [YES/NO]
 EXECUTE_AFTER_COMPILATION:=YES
-ALLOW_FOR_GNU_DEBUGGER:=NO
+ALLOW_FOR_GNU_DEBUGGER:=YES
 
 
+include ./make-files/Makefile
 
 .PHONY: config
 config:
 	./make-files/config.sh
 	
-include ./make-files/Makefile
 
 
 #    __
