@@ -27,6 +27,39 @@ run : ./output/bin.out
 	@g++ -c ./src/classes/Greeter.cpp -I ./src -I ./src/classes  -o ./tmp/classes/Greeter.o;
 
 
+.PHONY: gdb
+gdb : clean ./output/bin.out
+	@echo "\tLaunching gdb.\n"
+	@gdb ./output/bin.out
+
+
+.PHONY : googletest
+googletest : banner ./output/unittest.out 
+	@echo "\n\tRunning ./output/unittest.out"
+	./output/unittest.out
+
+./output/unittest.out : ./tmp/libgtest.a ./tmp/libproject.a ./gtests/unittest.cpp
+	@mkdir -p ./output
+	@echo "\tBuilding googletest ./gtests/unittest.cpp."
+	@g++ -isystem ./make-files/googletest/googletest/include -pthread -I ./src -I ./src/classes  -Wpedantic -g ./gtests/unittest.cpp ./tmp/libproject.a ./tmp/libgtest.a -o ./output/unittest.out
+
+
+./tmp/libgtest.a : ./tmp/gtest_main.o ./tmp/gtest_all.o
+	@echo "\tCompiling googletest library."
+	@ar -rc ./tmp/libgtest.a ./tmp/gtest-all.o ./tmp/gtest_main.o
+
+
+./tmp/gtest_main.o : ./make-files/googletest/googletest/src/gtest_main.cc
+	@echo "\tPrecompiling googletest object for ./make-files/googletest/googletest/src/gtest_main.cc."
+	@mkdir -p ./tmp
+	@g++ -isystem ./make-files/googletest/googletest/include -I ./make-files/googletest/googletest -pthread -c ./make-files/googletest/googletest/src/gtest_main.cc -o ./tmp/gtest_main.o
+
+./tmp/gtest_all.o : ./make-files/googletest/googletest/src/gtest-all.cc
+	@echo "\tPrecompiling googletest object for ./make-files/googletest/googletest/src/gtest-all.cc"
+	@mkdir -p ./tmp
+	@g++ -isystem ./make-files/googletest/googletest/include -I ./make-files/googletest/googletest -pthread -c ./make-files/googletest/googletest/src/gtest-all.cc -o ./tmp/gtest-all.o
+
+
 .PHONY : banner
 banner :
 	@cat ./make-files/fancy_banner_short.txt

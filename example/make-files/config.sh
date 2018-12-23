@@ -98,6 +98,10 @@ loadVariables(){
 	EXECUTE_AFTER_COMPILATION=$(cat ./Makefile | sed -rn 's#^EXECUTE_AFTER_COMPILATION.*:=\ *(.*)$#\1#p')
 	
 	ALLOW_FOR_GNU_DEBUGGER=$(cat ./Makefile | sed -rn 's#^ALLOW_FOR_GNU_DEBUGGER.*:=\ *(.*)$#\1#p')
+	
+	GTEST_REPOSITORY="./make-files/googletest/googletest"
+	
+	GTEST_LIBRARY=$TMP_DIR/libgtest.a
 }
 
 
@@ -310,6 +314,102 @@ $object : $code $header
 	@$CXX -c $code $FLAGS_DIN -o $object;
 " >> ./make-files/Makefile
 	done
+	
+	
+	
+	
+	# gdb
+	if [[ $ALLOW_FOR_GNU_DEBUGGER == "YES" ]]; then
+		echo "
+.PHONY: gdb
+gdb : clean $BINARY
+	@echo \"\tLaunching gdb.\n\"
+	@gdb $BINARY
+" >> ./make-files/Makefile
+	fi
+	
+	
+	
+	
+	
+	##################################
+	########### googletest ###########
+	##################################
+	
+	# if the googletest folder exists
+	if [[ $GTEST_DIR ]]; then
+		
+		
+		# execution of not of the googletests
+		gtestBinaries=$(echo -e $GTESTS | tr " " "\n" | sed -re 's#^'$GTEST_DIR'(.*)\.'$SRC_CODE_EXT'$#'$OUTPUT_DIR'\1.out#' | tr "\n" " ")
+		# if execution is set, put googletest as run
+		if [[ $EXECUTE_AFTER_COMPILATION == "YES" ]]; then
+			echo "
+.PHONY : googletest
+googletest : banner $gtestBinaries" >> ./make-files/Makefile
+		for binary in $gtestBinaries; do
+			echo "	@echo \"\n\tRunning $binary\"" >> ./make-files/Makefile
+			echo "	$binary" >> ./make-files/Makefile
+		done
+
+		# else set it as compile only
+		else
+			echo "
+.PHONY : googletest banner
+googletest : banner $gtestBinaries 
+" >> ./make-files/Makefile
+		fi
+		
+		
+		
+		
+		# googletest binaries
+		for gtest in $GTESTS; do
+			echo $gtest
+			binary=$(echo $gtest | sed -re 's#^'$GTEST_DIR'(.*)\.'$SRC_CODE_EXT'$#'$OUTPUT_DIR'\1.out#')
+			echo "
+$binary : $GTEST_LIBRARY $LIBRARY $gtest
+	@mkdir -p $OUTPUT_DIR
+	@echo \"\tBuilding googletest $gtest.\"
+	@g++ -isystem $GTEST_REPOSITORY/include -pthread $FLAGS_DIN $CXXFLAGS $gtest $LIBRARY $GTEST_LIBRARY -o $binary
+" >> ./make-files/Makefile
+		done
+		
+		
+		
+		
+		# googletest library compilation
+		echo "
+$GTEST_LIBRARY : $TMP_DIR/gtest_main.o $TMP_DIR/gtest_all.o
+	@echo \"\tCompiling googletest library.\"
+	@ar -rc $GTEST_LIBRARY $TMP_DIR/gtest-all.o $TMP_DIR/gtest_main.o
+" >> ./make-files/Makefile
+		
+		
+		
+		
+		
+		# googletest object creation
+		echo "
+$TMP_DIR/gtest_main.o : $GTEST_REPOSITORY/src/gtest_main.cc
+	@echo \"\tPrecompiling googletest object for $GTEST_REPOSITORY/src/gtest_main.cc.\"
+	@mkdir -p $TMP_DIR
+	@g++ -isystem $GTEST_REPOSITORY/include -I $GTEST_REPOSITORY -pthread -c $GTEST_REPOSITORY/src/gtest_main.cc -o $TMP_DIR/gtest_main.o
+
+$TMP_DIR/gtest_all.o : $GTEST_REPOSITORY/src/gtest-all.cc
+	@echo \"\tPrecompiling googletest object for $GTEST_REPOSITORY/src/gtest-all.cc\"
+	@mkdir -p $TMP_DIR
+	@g++ -isystem $GTEST_REPOSITORY/include -I $GTEST_REPOSITORY -pthread -c $GTEST_REPOSITORY/src/gtest-all.cc -o $TMP_DIR/gtest-all.o
+" >> ./make-files/Makefile
+		
+	fi
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
