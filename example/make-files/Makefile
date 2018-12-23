@@ -1,36 +1,30 @@
 # this Makefile was generated automaticly by generic-makefile
 
+.PHONY : target
+target : banner run
+	
+	
 .PHONY : run
 run : ./output/bin.out
 	@echo "\tExecuting binary.\n"
 	@time "./output/bin.out" hi!
-
-
-./output/bin.out : banner ./output ./src/main.cpp  ./tmp/libproject.a
+	
+	
+./output/bin.out : ./src/main.cpp  ./tmp/libproject.a
 	@echo "\tCompiling binary."
-	g++ ./src/main.cpp -Wpedantic -g -I ./src -I ./src/classes  -o ./output/bin.out ./tmp/libproject.a 
+	@mkdir -p ./output
+	@g++ ./src/main.cpp -Wpedantic -g -I ./src -I ./src/classes  -o ./output/bin.out ./tmp/libproject.a 
 
 
-./tmp/libproject.a : ./tmp/classes/Greeter.o  ./tmp
+./tmp/libproject.a : ./tmp/classes/Greeter.o 
 	@echo "\tBuilding project library."
-	ar -rsc ./tmp/libproject.a ./tmp/classes/Greeter.o 
+	@ar -rsc ./tmp/libproject.a ./tmp/classes/Greeter.o 
 
 
-./tmp/classes/Greeter.o : ./src/classes/Greeter.cpp ./src/classes/Greeter.hpp ./tmp/classes
+./tmp/classes/Greeter.o : ./src/classes/Greeter.cpp ./src/classes/Greeter.hpp
 	@echo "\tPrecompiling object for ./src/classes/Greeter.cpp."
-	g++ -c ./src/classes/Greeter.cpp -I ./src -I ./src/classes  -o ./tmp/classes/Greeter.o;
-
-
-./tmp : 
-	@mkdir -p ./tmp
-
-
-./tmp/classes : 
 	@mkdir -p ./tmp/classes
-
-
-./output : 
-	@mkdir -p ./output 
+	@g++ -c ./src/classes/Greeter.cpp -I ./src -I ./src/classes  -o ./tmp/classes/Greeter.o;
 
 
 .PHONY : banner

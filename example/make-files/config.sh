@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# loads the variables from the Makefile configuration
+
+
 
 debugMakeVariables(){
 	echo "SRC_DIR         ->" $SRC_DIR
@@ -69,33 +70,33 @@ debugVariables(){
 # loads the variables from the configuration Makefile
 loadVariables(){
 	SRC_DIR=$(cat ./Makefile | sed -rn 's#^SRC_DIR.*:=\ *(.*)$#\1#p')
-
+	
 	GTEST_DIR=$(cat ./Makefile | sed -rn 's#^GTEST_DIR.*:=\ *(.*)$#\1#p')
-
+	
 	OUTPUT_DIR=$(cat ./Makefile | sed -rn 's#^OUTPUT_DIR.*:=\ *(.*)$#\1#p')
-
+	
 	EXTRA_LIB_DIR=$(cat ./Makefile | sed -rn 's#^EXTRA_LIB_DIR.*:=\ *(.*)$#\1#p')
-
+	
 	TMP_DIR=$(cat ./Makefile | sed -rn 's#^TMP_DIR.*:=\ *(.*)$#\1#p')
-
+	
 	SRC_CODE_EXT=$(cat ./Makefile | sed -rn 's#^SRC_CODE_EXT.*:=\ *(.*)$#\1#p')
-
+	
 	SRC_HEADERS_EXT=$(cat ./Makefile | sed -rn 's#^SRC_HEADERS_EXT.*:=\ *(.*)$#\1#p')
-
+	
 	MAIN_FILE=$(cat ./Makefile | sed -rn 's#^MAIN_FILE.*:=\ *(.*)$#\1#p')
-
+	
 	EXCLUDED_FILES=$(cat ./Makefile | sed -rn 's#^EXCLUDED_FILES.*:=\ *(.*)$#\1#p')
-
+	
 	BIN_NAME=$(cat ./Makefile | sed -rn 's#^BIN_NAME.*:=\ *(.*)$#\1#p')
-
+	
 	BIN_ARGUMENTS=$(cat ./Makefile | sed -rn 's#^BIN_ARGUMENTS.*:=\ *(.*)$#\1#p')
-
+	
 	CXX=$(cat ./Makefile | sed -rn 's#^CXX\ *:=\ *(.*)$#\1#p')
-
+	
 	CXXFLAGS=$(cat ./Makefile | sed -rn 's#^CXXFLAGS.*:=\ *(.*)$#\1#p')
-
+	
 	EXECUTE_AFTER_COMPILATION=$(cat ./Makefile | sed -rn 's#^EXECUTE_AFTER_COMPILATION.*:=\ *(.*)$#\1#p')
-
+	
 	ALLOW_FOR_GNU_DEBUGGER=$(cat ./Makefile | sed -rn 's#^ALLOW_FOR_GNU_DEBUGGER.*:=\ *(.*)$#\1#p')
 }
 
@@ -196,7 +197,7 @@ processVariables(){
 			done
 			FLAGS_DIN_PATHS=$AUX
 		done
-		
+	
 	fi
 	
 	
@@ -243,46 +244,56 @@ generateMakefile(){
 	# the  build, if not, first build then run
 	if [[ $EXECUTE_AFTER_COMPILATION == "YES" ]]; then
 		echo "
+.PHONY : target
+target : banner run
+	
+	
 .PHONY : run
-run : $OUTPUT_DIR/$BIN_NAME
+run : $BINARY
 	@echo \"\tExecuting binary.\n\"
-	@time \"$OUTPUT_DIR/$BIN_NAME\" $BIN_ARGUMENTS
-
-
-$OUTPUT_DIR/$BIN_NAME : banner $OUTPUT_DIR $MAIN $EXTRA_LIBS $LIBRARY
+	@time \"$BINARY\" $BIN_ARGUMENTS
+	
+	
+$BINARY : $MAIN $EXTRA_LIBS $LIBRARY
 	@echo \"\tCompiling binary.\"
-	$CXX $MAIN $CXXFLAGS $FLAGS_DIN -o $BINARY $LIBRARY $EXTRA_LIBS
+	@mkdir -p $OUTPUT_DIR
+	@$CXX $MAIN $CXXFLAGS $FLAGS_DIN -o $BINARY $LIBRARY $EXTRA_LIBS
 " >> ./make-files/Makefile
-
+	
 	else
 		echo "
-$OUTPUT_DIR/$BIN_NAME : banner $OUTPUT_DIR $MAIN $EXTRA_LIBS $LIBRARY
+.PHONY : target
+target : banner $BINARY
+	
+	
+$BINARY : $MAIN $EXTRA_LIBS $LIBRARY
 	@echo \"\tCompiling binary.\"
-	$CXX $MAIN $CXXFLAGS $FLAGS_DIN -o $BINARY $LIBRARY $EXTRA_LIBS
-
-
+	@mkdir -p $OUTPUT_DIR
+	@$CXX $MAIN $CXXFLAGS $FLAGS_DIN -o $BINARY $LIBRARY $EXTRA_LIBS
+	
+	
 .PHONY : run
-run : $OUTPUT_DIR/$BIN_NAME
+run : $BINARY
 	@echo \"\tExecuting binary.\n\"
-	@time \"$OUTPUT_DIR/$BIN_NAME\" $BIN_ARGUMENTS
+	@time \"$BINARY\" $BIN_ARGUMENTS
 " >> ./make-files/Makefile
 	fi
 	
 	
-
-
+	
+	
 	
 	# library compilation
 	echo "
-$LIBRARY : $OBJECTS $TMP_DIR
+$LIBRARY : $OBJECTS
 	@echo \"\tBuilding project library.\"
-	ar -rsc $LIBRARY $OBJECTS
+	@ar -rsc $LIBRARY $OBJECTS
 " >> ./make-files/Makefile
-
-
-
-
-
+	
+	
+	
+	
+	
 	# object compilation
 	for code in $CODE; do
 		# get the corresponding object name and path for the code
@@ -293,30 +304,13 @@ $LIBRARY : $OBJECTS $TMP_DIR
 		header=$(find $SRC_DIR -wholename "$file" -type f)
 		folder=$(echo $object | sed -re 's#^(.*)/[^/]*\.o$#\1#')
 		echo "
-$object : $code $header $folder
+$object : $code $header
 	@echo \"\tPrecompiling object for $code.\"
-	$CXX -c $code $FLAGS_DIN -o $object;
+	@mkdir -p $folder
+	@$CXX -c $code $FLAGS_DIN -o $object;
 " >> ./make-files/Makefile
 	done
 	
-	
-	
-
-
-
-	# temporal folders
-	for folder in $TMP_FOLDERS; do
-		echo "
-$folder : 
-	@mkdir -p $folder
-" >> ./make-files/Makefile 
-	done
-	echo "
-$OUTPUT_DIR : 
-	@mkdir -p $OUTPUT_DIR 
-" >> ./make-files/Makefile 
-
-
 	
 	
 	
@@ -326,8 +320,8 @@ $OUTPUT_DIR :
 banner :
 	@cat ./make-files/fancy_banner_short.txt
 " >> ./make-files/Makefile
-
-
+	
+	
 	
 	
 	# help
@@ -337,12 +331,12 @@ help:
 	@cat ./make-files/banner.txt
 	@cat ./make-files/help.txt
 " >> ./make-files/Makefile
-
-
-
-
-
-
+	
+	
+	
+	
+	
+	
 	# clean
 	echo "
 .PHONY : clean
@@ -353,8 +347,8 @@ clean:
 	@rm $OUTPUT_DIR/*.out
 " >> ./make-files/Makefile
 	
-
-
+	
+	
 	
 	
 	
