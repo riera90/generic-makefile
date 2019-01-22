@@ -32,10 +32,10 @@ googletest : banner ./output/unittest.out
 	@echo "\n\tRunning ./output/unittest.out"
 	./output/unittest.out
 
-./output/unittest.out : ./tmp/libgtest.a ./tmp/libproject.a ./gtests/unittest.cpp
+./gtests/unittest.cpp : ./tmp/libgtest.a ./tmp/libproject.a ./gtests/unittest.cpp
 	@mkdir -p ./output
 	@echo "\tBuilding googletest ./gtests/unittest.cpp."
-	@g++ -isystem ./make-files/googletest/googletest/include -pthread -I ./src -I ./src/classes  -Wpedantic ./gtests/unittest.cpp ./tmp/libproject.a ./tmp/libgtest.a -o ./output/unittest.out
+	@g++ -isystem ./make-files/googletest/googletest/include -pthread -I ./src -I ./src/classes  -Wpedantic ./gtests/unittest.cpp ./tmp/libproject.a ./tmp/libgtest.a -o ./gtests/unittest.cpp
 
 
 ./tmp/libgtest.a : ./tmp/gtest_main.o ./tmp/gtest-all.o

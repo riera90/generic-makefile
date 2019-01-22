@@ -365,8 +365,7 @@ googletest : banner $gtestBinaries
 		
 		# googletest binaries
 		for gtest in $GTESTS; do
-			echo $gtest
-			binary=$(echo $gtest | sed -re 's#^'$GTEST_DIR'(.*)\.'$SRC_CODE_EXT'$#'$OUTPUT_DIR'\1.out#')
+			binary=$(echo $gtest | sed -re 's#^'$G./gtests/unittest.cppTEST_DIR'(.*)\.'$SRC_CODE_EXT'$#'$OUTPUT_DIR'\1.out#')
 			echo "
 $binary : $GTEST_LIBRARY $LIBRARY $gtest
 	@mkdir -p $OUTPUT_DIR
