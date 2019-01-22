@@ -1,3 +1,8 @@
+# generic-makefile v3
+
+![](https://github.com/riera90/generic-makefile/blob/master/make-files/logo.png)
+
+
 For a better experience, please use the  [generic-CLI](https://github.com/riera90/generic-CLI), a easy to use generic-technology manager.
 
 
