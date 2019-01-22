@@ -469,11 +469,11 @@ clean:
 
 loadVariables
 
-debugMakeVariables
+# debugMakeVariables
 
 processVariables
 
-debugVariables
+# debugVariables
 
 generateMakefile
 

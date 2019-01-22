@@ -5,6 +5,7 @@
     git clone git@github.com:riera90/generic-makefile.git
     cd generic-makefile
     Configure the variables
+    make config
     make
     And enjoy the binaries!
 
