@@ -98,6 +98,8 @@ one line instalation command (for the first time only) then use the generic-cli 
 - **make clean** cleanup of the project temporal files.
 - **make gdb** fresh gdb compilation and execution (by default).
 
+![gmf usage](https://github.com/riera90/generic-makefile/blob/master/make-files/gmf.gif)
+
 ## variables
 
 | variable        | definition    | restrictions  |
