@@ -34,7 +34,7 @@ So you don't have to make yours or configure another one for more than 30 second
 		cd generic-CLI
 		./install.sh
 
-- install the generic-makefile in yourlicence project directory!
+- install the generic-makefile in your project directory!
 
 		cd <project directory>
 		generic-cli -c makefile
@@ -70,9 +70,14 @@ one line instalation command (for the first time only) then use the generic-cli 
 		cd googletest
 		rm -rf .git
 
+- apply the new configuration to the make-files/Makefile
+
+		make config
+
 - hit make and enjoy!
 
 		make
+
 
 
 
@@ -81,10 +86,12 @@ one line instalation command (for the first time only) then use the generic-cli 
 
 ## Commands
 
-- **make** It builds the project.
-- **make googletest** It builds and executes the tests for the project.
+- **make config** applies the new configuration to make-files/Makefile
+- **make** It builds the project and executes the binary (by default).
+- **make run** executes the binary.
+- **make googletest** It builds and executes (by default) the tests for the project.
 - **make clean** cleanup of the project temporal files.
-- **make gdb** fresh gdb compilation.
+- **make gdb** fresh gdb compilation and execution (by default).
 
 ## variables
 

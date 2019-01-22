@@ -380,7 +380,7 @@ $binary : $GTEST_LIBRARY $LIBRARY $gtest
 		
 		# googletest library compilation
 		echo "
-$GTEST_LIBRARY : $TMP_DIR/gtest_main.o $TMP_DIR/gtest_all.o
+$GTEST_LIBRARY : $TMP_DIR/gtest_main.o $TMP_DIR/gtest-all.o
 	@echo \"\tCompiling googletest library.\"
 	@ar -rc $GTEST_LIBRARY $TMP_DIR/gtest-all.o $TMP_DIR/gtest_main.o
 " >> ./make-files/Makefile
@@ -396,7 +396,7 @@ $TMP_DIR/gtest_main.o : $GTEST_REPOSITORY/src/gtest_main.cc
 	@mkdir -p $TMP_DIR
 	@g++ -isystem $GTEST_REPOSITORY/include -I $GTEST_REPOSITORY -pthread -c $GTEST_REPOSITORY/src/gtest_main.cc -o $TMP_DIR/gtest_main.o
 
-$TMP_DIR/gtest_all.o : $GTEST_REPOSITORY/src/gtest-all.cc
+$TMP_DIR/gtest-all.o : $GTEST_REPOSITORY/src/gtest-all.cc
 	@echo \"\tPrecompiling googletest object for $GTEST_REPOSITORY/src/gtest-all.cc\"
 	@mkdir -p $TMP_DIR
 	@g++ -isystem $GTEST_REPOSITORY/include -I $GTEST_REPOSITORY -pthread -c $GTEST_REPOSITORY/src/gtest-all.cc -o $TMP_DIR/gtest-all.o
