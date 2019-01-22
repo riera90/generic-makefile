@@ -1,6 +1,5 @@
 For a better experience, please use the  [generic-CLI](https://github.com/riera90/generic-CLI), a easy to use generic-technology manager.
 
-![](https://github.com/riera90/generic-makefile/blob/master/make-files/logo.png)
 
 # Description
 
@@ -30,9 +29,9 @@ So you don't have to make yours or configure another one for more than 30 second
 
 		git clone https://github.com/riera90/generic-CLI.git
 
-- install the generic-CLI with the instalation script
+- install the generic-CLI with the installation script
 
-		cd generic-cli
+		cd generic-CLI
 		./install.sh
 
 - install the generic-makefile in your project directory!
@@ -42,7 +41,7 @@ So you don't have to make yours or configure another one for more than 30 second
 
 one line instalation command (for the first time only) then use the generic-cli utility
 
-	git clone https://github.com/riera90/generic-CLI.git && cd generic-cli && sudo chmod +x ./install.sh && ./install.sh && generic-cli -c gmf
+	git clone https://github.com/riera90/generic-CLI.git && cd generic-CLI && sudo chmod +x ./install.sh && ./install.sh && generic-cli -c gmf
 
 ## Method 2: the 'hard' way
 
@@ -55,7 +54,7 @@ one line instalation command (for the first time only) then use the generic-cli 
 
 		rm -rf .git .gitignore example gtests
 
-- Move the licence and readme to the make-files folder (the license is required to remain in the project)
+- Move the license and readme to the make-files folder (the license is required to remain in the project)
 
 		mv ./*.md ./make-files/
 
@@ -71,9 +70,14 @@ one line instalation command (for the first time only) then use the generic-cli 
 		cd googletest
 		rm -rf .git
 
+- apply the new configuration to the make-files/Makefile
+
+		make config
+
 - hit make and enjoy!
 
 		make
+
 
 
 
@@ -82,10 +86,12 @@ one line instalation command (for the first time only) then use the generic-cli 
 
 ## Commands
 
-- **make** It builds the project.
-- **make googletest** It builds and executes the tests for the project.
+- **make config** applies the new configuration to make-files/Makefile
+- **make** It builds the project and executes the binary (by default).
+- **make run** executes the binary.
+- **make googletest** It builds and executes (by default) the tests for the project.
 - **make clean** cleanup of the project temporal files.
-- **make gdb** fresh gdb compilation.
+- **make gdb** fresh gdb compilation and execution (by default).
 
 ## variables
 

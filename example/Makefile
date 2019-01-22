@@ -24,10 +24,16 @@ CXX:=g++
 CXXFLAGS:=-Wpedantic
 
 # [YES/NO]
-EXECUTE_AFTER_COMPILATION=YES
-ALLOW_FOR_GNU_DEBUGGER=NO
+EXECUTE_AFTER_COMPILATION:=YES
+ALLOW_FOR_GNU_DEBUGGER:=NO
+
 
 include ./make-files/Makefile
+
+.PHONY: config
+config:
+	./make-files/config.sh
+	
 
 
 #    __
