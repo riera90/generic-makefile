@@ -1,8 +1,3 @@
 # Contributing
-Please, contact @riera90 at telegram
 
-All contributions are welcome!
-
-
-# TODO List
-- add excluded files functionality.
+feel free to contribute! If you want to help, visit the issues first, someone might be already working on it!
