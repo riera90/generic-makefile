@@ -32,7 +32,13 @@ include ./make-files/Makefile
 
 .PHONY: config
 config:
-	./make-files/config.sh
+	@echo "\tConfiguring makefile"
+	@./make-files/config.sh
+
+.PHONY: reset
+reset:
+	@echo "\tReseting makefile configuration"
+	@./make-files/config.sh reset
 
 
 

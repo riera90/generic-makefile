@@ -1,4 +1,4 @@
-# this Makefile was generated automaticly by generic-makefile
+# this Makefile was generated automatically by generic-makefile
 
 .PHONY : target
 target : banner run
@@ -68,9 +68,28 @@ help:
 .PHONY : clean
 clean:
 	@echo "\tRemoving temporal files"
-	@rm -rf ./tmp
+	@if [ -d "./tmp" ]; then rm -rf ./tmp; fi
 	@echo "\tRemoving binary files"
-	@rm ./output/*.out
+	@if [ -d "./output/*.out" ]; then rm ./output/*.out; fi
+
+
+.PHONY : init-gest
+init-gest:
+	@echo "\tClonning googletest to make-files"
+	@if [ -d "make-files/googletest" ]; then \
+		echo "googletest is already cloned"; \
+	else \
+		git clone https://github.com/google/googletest.git make-files/googletest; \
+		rm ./make-files/googletest/googletest/.git -rf; \
+	fi;
+
+
+.PHONY : rm-gest
+rm-gest:
+	@echo "\tRemoving googletest repository"
+	@if [ -d "make-files/googletest" ]; then \
+		rm make-files/googletest -rf; \
+	fi;
 
 #    __
 # __( o)>
