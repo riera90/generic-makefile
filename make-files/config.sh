@@ -107,6 +107,8 @@ loadVariables(){
 	
 	ALLOW_FOR_GNU_DEBUGGER=$(cat ./Makefile | sed -rn 's#^ALLOW_FOR_GNU_DEBUGGER.*:=\ *(.*)$#\1#p')
 	
+	AUTOMATIC_LINKING=$(cat ./Makefile | sed -rn 's#^AUTOMATIC_LINKING.*:=\ *(.*)$#\1#p')
+	
 	GTEST_REPOSITORY="./make-files/googletest/googletest"
 	
 	GTEST_LIBRARY=$TMP_DIR/libgtest.a
@@ -216,9 +218,13 @@ processVariables(){
 	# extra variables configuration
 	
 	# add -I to the dinamic flags directory
-	for flag in $FLAGS_DIN_PATHS; do
-		FLAGS_DIN+="-I "$flag" "
-	done
+	
+	if [[ $AUTOMATIC_LINKING == "YES" ]]; then
+		for flag in $FLAGS_DIN_PATHS; do
+			FLAGS_DIN+="-I "$flag" "
+		done
+	fi
+	
 	
 	
 	# set the project library name

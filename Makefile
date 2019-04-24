@@ -26,6 +26,8 @@ CXXFLAGS:=-Wpedantic
 # [YES/NO]
 EXECUTE_AFTER_COMPILATION:=YES
 ALLOW_FOR_GNU_DEBUGGER:=NO
+# automatic linking from all files under the app directory
+AUTOMATIC_LINKING:=YES
 
 
 include ./make-files/Makefile
