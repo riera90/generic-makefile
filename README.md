@@ -125,7 +125,7 @@ one line instalation command (for the first time only) then use the generic-cli 
 Licensed under the [BSD-3 licence](https://github.com/riera90/generic-makefile/blob/master/LICENSE.md)
 
 
-# Want to colaborate?
+# Want to collaborate?
 
 Read [CONTRIBUTING.md](https://github.com/riera90/generic-makefile/blob/master/CONTRIBUTING.md)!
 
